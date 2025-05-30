@@ -1,0 +1,28 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Vercel
+.vercel
+
+# Next.js
+.next/
+out/
+
+# Production
+build
+
+# Env files
+.env
+.env*.local
+*.env
+
+# IDE / Editor specific
+.vscode/
+# .idea/ (ako koristite JetBrains IDE)
+# .cursor/ (provjerite treba li ovo ignorirati; mcp.json specifičan za projekt možda ne treba)
+
+# OS generated files
+.DS_Store
+Thumbs.db
