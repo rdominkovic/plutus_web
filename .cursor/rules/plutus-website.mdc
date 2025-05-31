@@ -62,21 +62,12 @@ alwaysApply: true
     * Use `lowercase-kebab-case` for directory and file names (e.g., `components/hero-section/hero-section.tsx`).
     * Favor named exports for components and modules.
 
-### 5. Plutus UI/UX Specifics
+### 5. Plutus UI/UX Design Guidelines
 
-* **Theme:**
-    * Implement a **dark theme**.
-    * Primary background color: `#1A1A1A` (ili drugi specificirani tamni ton).
-    * Primary text color: `#FFFFFF` (ili drugi svijetli kontrastni ton).
-    * Accent color (for CTAs, links, highlights): `#3B82F6` (ili drugi specificirani Plutus brend akcent).
-* **Animations:**
-    * Implement subtle **fade-in animations** for the initial appearance of page sections or key elements as they scroll into view. Keep animations smooth and non-intrusive.
-* **Layout & Responsiveness:**
-    * Ensure the website is **fully responsive** and looks excellent on all screen sizes (mobile, tablet, desktop).
-    * Use a **mobile-first approach** with Tailwind CSS.
-* **Navigation (Single-Page):**
-    * Implement smooth scrolling for internal page links.
-    * Consider a fixed header with clear navigation to different sections.
+* **Overall Style:** Adhere to the modern, clean, dark-themed design aesthetic, component styles, typography, and interaction patterns detailed in the `instructions/muradov_design/design_inspiration_muradov.md` file (and accompanying screenshots).
+* **Animations:** Implement subtle and professional animations (e.g., fade-ins, scroll-triggered effects) as outlined in the design inspiration.
+* **Layout & Responsiveness:** Ensure the website is fully responsive and follows a mobile-first approach using Tailwind CSS.
+* **Navigation (Single-Page):** Implement smooth scrolling for internal page links and consider a clear, potentially fixed, header for navigation.
 
 ### 6. Next.js & Performance
 
@@ -102,12 +93,12 @@ alwaysApply: true
 
 * When implementing features requiring backend interaction (e.g., contact form submission):
     * Use the Supabase JavaScript client library.
-    * Structure API interactions securely (e.g., using Next.js API Routes as an intermediary if needed, or direct client-side calls for simple operations as appropriate with Supabase Row Level Security).
-    * Handle form data submission, validation (consider a lightweight library if complex, or simple checks), and feedback to the user (success/error messages).
+    * Structure API interactions securely.
+    * Handle form data submission, validation, and user feedback.
 
 ### 9. Vercel Hosting Considerations
 
-* Utilize environment variables for sensitive information (e.g., Supabase API keys) and ensure they are correctly configured in Vercel.
+* Utilize environment variables for sensitive information and ensure they are correctly configured in Vercel.
 * Be mindful of Vercel's build process and deployment best practices.
 
 ### 10. Error Handling
@@ -128,7 +119,7 @@ alwaysApply: true
 ### 12. Basic Security Considerations (Frontend)
 
 * **Data Display:** Be mindful of XSS if not using React's default sanitization (avoid `dangerouslySetInnerHTML`).
-* **API Keys:** Never hardcode sensitive keys in frontend code. Use environment variables via Vercel/`.env.local`.
+* **API Keys:** Never hardcode sensitive keys in frontend code. Use environment variables.
 * **Third-party Libraries:** Use reputable, updated libraries.
 
 ### 13. State Management
@@ -141,6 +132,5 @@ alwaysApply: true
 * Write testable code. If tests are implemented, prefer Jest and React Testing Library for unit/integration tests. (This complements the TDD approach in section 2).
 
 ### 15. Linting and Formatting
-
 
 * Strictly adhere to the project's ESLint and Prettier configurations. Ensure code is linted and formatted before committing.
