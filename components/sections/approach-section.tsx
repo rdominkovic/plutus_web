@@ -25,7 +25,7 @@ const ApproachSection = () => (
           <div key={item.title} className="flex flex-col items-center text-center p-6">
             <div className="text-4xl mb-4" aria-hidden="true">{item.icon}</div>
             <h3 className="font-mono text-lg uppercase text-main-white mb-2">{item.title}</h3>
-            <p className="font-sans text-main-white/80">{item.desc}</p>
+            <p className="font-sans text-main-white/60">{item.desc}</p>
           </div>
         ))}
       </div>
