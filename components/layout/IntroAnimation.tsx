@@ -1,105 +1,175 @@
 // path: components/layout/IntroAnimation.tsx
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState, useRef, memo } from 'react';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import styles from './IntroAnimation.module.css';
-import LetterSpinner from './LetterSpinner';
 
 interface IntroAnimationProps {
   onAnimationComplete: () => void;
 }
 
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&/0123456789";
+
+const BASE_SCRAMBLE_DURATION_MS = 200; 
+const ADDITIONAL_DURATION_PER_LETTER_MS = 100;
+const STAGGER_DELAY_S = 0.08;
+
 export default function IntroAnimation({ onAnimationComplete }: IntroAnimationProps) {
-  const [displayText, setDisplayText] = useState('');
-  const [areDotsBouncing, setAreDotsBouncing] = useState(false);
+  const [letters, setLetters] = useState<string[]>('Loading...'.split(''));
+  const [canDotsBounce, setCanDotsBounce] = useState(false);
   const [isFlying, setIsFlying] = useState(false);
-  const animatedTextContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timeouts: NodeJS.Timeout[] = [];
-    const addTimer = (cb: () => void, delay: number) => {
-        timeouts.push(setTimeout(cb, delay));
-    };
+    const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-    const sequence = [
-      "L", "Lo", "Loa", "Load", "Loadi", "Loadin", "Loading",
-      "Loading.", "Loading..", "Loading..."
-    ];
+    const runAnimationSequence = async () => {
+      await wait(2500);
+      setCanDotsBounce(true);
+      await wait(2000);
+      setCanDotsBounce(false);
+      await wait(100);
 
-    sequence.forEach((text, index) => {
-      addTimer(() => setDisplayText(text), index * 200);
-    });
+      const finalWord = 'Plutus...'.split('');
+      const transitionStagger = 100;
 
-    addTimer(() => setAreDotsBouncing(true), sequence.length * 200);
-
-    addTimer(() => {
-        setAreDotsBouncing(false);
-        const plutusSequence = ["Plutus", "Plutu", "Plut", "Plu", "Pl", "P", ""];
-        plutusSequence.forEach((text, index) => {
-            addTimer(() => setDisplayText(text), index * 100);
+      for (let i = 0; i < finalWord.length; i++) {
+        setLetters(current => {
+          const next = [...current];
+          next[i] = finalWord[i] || '';
+          return next;
         });
-        addTimer(() => animateWord("Plutus", finalizeAndFly), plutusSequence.length * 100 + 100);
+        await wait(transitionStagger);
+      }
+      
+      setLetters(finalWord);
+      await wait(500);
 
-    }, (sequence.length * 200) + 2500); // Pauza od 2.5s
-
-    const animateWord = (targetWord: string, callback: () => void) => {
-        const letters = targetWord.split('');
-        letters.forEach((_, index) => {
-            addTimer(() => setDisplayText(targetWord.substring(0, index + 1)), index * 200);
-        });
-        addTimer(callback, letters.length * 200);
+      setCanDotsBounce(true);
+      await wait(2000);
+      
+      setIsFlying(true);
+      // Ne zovemo onAnimationComplete odmah, nego nakon što se završi let
     };
 
-    const finalizeAndFly = () => {
-        const container = animatedTextContainerRef.current;
-        if (!container) return;
+    runAnimationSequence();
+  }, []); // useEffect se pokreće samo jednom
 
-        const rect = container.getBoundingClientRect();
-        document.body.appendChild(container);
-        
-        container.style.position = 'fixed';
-        container.style.left = `${rect.left}px`;
-        container.style.top = `${rect.top}px`;
-        container.style.zIndex = '2000';
-        container.style.minWidth = 'auto'; 
-        
-        void container.offsetHeight;
-
-        container.style.transition = 'top 1s ease-in-out, left 1s ease-in-out, font-size 1s ease-in-out, transform 1s ease-in-out';
-        
-        container.style.top = '20px';
-        container.style.left = '50%';
-        container.style.transform = 'translateX(-50%)';
-        container.style.fontSize = '1.5rem';
-
-        addTimer(() => setIsFlying(true), 1000);
-    };
-    
-    return () => { // Cleanup
-        timeouts.forEach(clearTimeout);
-    };
-
-  }, []);
-
-  useEffect(() => {
-    if (isFlying) {
-      onAnimationComplete();
-    }
-  }, [isFlying, onAnimationComplete]);
+  const flyUpVariants: Variants = {
+    initial: { y: 0, scale: 1, position: 'relative' }, // Počinje kao relativan
+    animate: {
+      y: '-45vh', // Prilagođeno za bolji položaj
+      scale: 0.6,
+      position: 'fixed', // Postaje fiksiran tek kad leti
+      top: '50%',
+      left: '50%',
+      translateX: '-50%',
+      transition: { type: 'spring', stiffness: 50, duration: 1 },
+    },
+  };
+  
+  const wordContainerVariants: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: STAGGER_DELAY_S } },
+  };
 
   return (
-    <div className={styles.introOverlay}>
-      <div className={styles.loadingContainer} ref={animatedTextContainerRef}>
-        <div className={styles.loadingText}>
-            {displayText.split('').map((char, index) => (
-                <LetterSpinner 
-                    key={index} 
-                    char={char} 
-                    isBouncing={areDotsBouncing && char === '.'}
-                />
-            ))}
-        </div>
-      </div>
-    </div>
+    // Vraćamo samo kontejner za tekst. Nema više pozadine.
+    <motion.div
+      className={styles.loadingContainer}
+      variants={flyUpVariants}
+      initial="initial"
+      animate={isFlying ? "animate" : "initial"}
+      // Kada se animacija leta završi, javljamo roditelju
+      onAnimationComplete={() => {
+        if (isFlying) {
+          onAnimationComplete();
+        }
+      }}
+    >
+      <motion.div
+        className={styles.wordWrapper}
+        variants={wordContainerVariants}
+        initial="hidden"
+        animate="visible"
+        onAnimationComplete={() => {
+          if (letters.join('') === 'Loading...') {
+            setCanDotsBounce(true);
+          }
+        }}
+      >
+        <AnimatePresence>
+          {letters.map((char, i) => (
+            <ScrambleLetter 
+              finalChar={char} 
+              index={i} 
+              canBounce={canDotsBounce}
+              currentWord={letters.join('')}
+              key={i} 
+            />
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   );
 }
+
+// ScrambleLetter komponenta ostaje ista
+const ScrambleLetter = memo(function ScrambleLetter({ finalChar, index, canBounce, currentWord }: { finalChar: string, index: number, canBounce: boolean, currentWord: string }) {
+  const [currentChar, setCurrentChar] = useState('');
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const letterVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+    bouncing: {
+      opacity: 1,
+      y: [0, -5, 0],
+      transition: {
+        duration: 1.2,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: (index - currentWord.replace(/\./g, '').length) * 0.15,
+      },
+    },
+    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.3 } }
+  };
+
+  useEffect(() => {
+    if (finalChar === '') {
+      setCurrentChar('');
+      return;
+    }
+    const totalScrambleDuration = BASE_SCRAMBLE_DURATION_MS + (index * ADDITIONAL_DURATION_PER_LETTER_MS);
+    const intervalDuration = 75;
+    const maxScrambles = Math.ceil(totalScrambleDuration / intervalDuration);
+    let count = 0;
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      if (count >= maxScrambles) {
+        setCurrentChar(finalChar);
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        return;
+      }
+      setCurrentChar(characters[Math.floor(Math.random() * characters.length)]);
+      count++;
+    }, intervalDuration);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [finalChar, index]);
+
+  if (!finalChar && !currentChar) return null;
+
+  return (
+    <motion.span
+      className={styles.scrambleLetter}
+      variants={letterVariants}
+      initial="hidden"
+      animate={finalChar === '.' && canBounce ? "bouncing" : "visible"}
+      exit="exit"
+    >
+      {currentChar}
+    </motion.span>
+  );
+});

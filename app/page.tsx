@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import HeroSection from '../components/sections/hero-section';
 import ProblemSection from '../components/sections/problem-section';
 import ServicesSection from '../components/sections/services-section';
@@ -11,34 +12,55 @@ import ContactSection from '../components/sections/contact-section';
 import IntroAnimation from '../components/layout/IntroAnimation';
 
 export default function HomePage() {
-  const [showIntro, setShowIntro] = useState(true);
-  const [showMainContent, setShowMainContent] = useState(false);
+  const [animationState, setAnimationState] = useState('intro'); // Moguća stanja: 'intro', 'outro', 'finished'
 
   useEffect(() => {
-    // Spriječi scroll dok je intro aktivan
-    if (showIntro) {
-      document.body.style.overflow = 'hidden';
+    if (animationState === 'finished') {
+      document.body.style.overflow = 'auto';
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'hidden';
     }
-    // Očisti stil prilikom unmountanja komponente
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [showIntro]);
+  }, [animationState]);
 
   const handleAnimationComplete = () => {
-    setShowIntro(false);
-    setShowMainContent(true); 
+    // Kada Intro animacija završi svoj let, pokrećemo 'outro' fazu
+    setAnimationState('outro');
   };
 
   return (
     <>
-      {showIntro && <IntroAnimation onAnimationComplete={handleAnimationComplete} />}
-      
-      <div style={{ opacity: showMainContent ? 1 : 0, transition: 'opacity 1s ease-in-out' }}>
+      {/* Kontejner za pozicioniranje animacije i pozadine */}
+      <div className="fixed inset-0 flex items-center justify-center z-50">
+        {/* Renderiramo IntroAnimation samo dok animacija traje */}
+        {animationState === 'intro' && (
+          <IntroAnimation onAnimationComplete={handleAnimationComplete} />
+        )}
+      </div>
+
+      {/* Crna pozadina koja nestaje */}
+      <AnimatePresence>
+        {animationState !== 'finished' && (
+          <motion.div
+            className="fixed inset-0 bg-black z-40"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: animationState === 'outro' || animationState === 'finished' ? 0 : 1 }}
+            transition={{ duration: 0.8 }}
+            onAnimationComplete={() => {
+              if (animationState === 'outro') {
+                setAnimationState('finished');
+              }
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Glavni sadržaj stranice */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: animationState === 'outro' || animationState === 'finished' ? 1 : 0 }}
+        transition={{ duration: 1.0, delay: 0.2 }}
+      >
         <main>
-          {/* Ostatak tvojih sekcija */}
           <HeroSection />
           <ProblemSection />
           <ServicesSection />
@@ -46,7 +68,7 @@ export default function HomePage() {
           <ExamplesSection />
           <ContactSection />
         </main>
-      </div>
+      </motion.div>
     </>
   );
 }
