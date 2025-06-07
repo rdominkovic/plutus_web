@@ -39,12 +39,6 @@
   color: #f8f7f4;
 }
 
-.wordWrapper {
-  display: flex;
-  justify-content: flex-start; 
-  min-width: 10em;
-}
-
 .scrambleLetter {
   display: inline-block;
   width: 0.6em;
