@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const rotatingTexts = [
   "UNAPREĐUJEMO VAŠE POSLOVANJE",
@@ -175,20 +176,22 @@ const TextRotator = () => {
   if (scrollProgress > 1) return null;
 
   return (
-    <div className="relative text-center min-h-[50vh] flex flex-col items-center justify-center -mt-20 overflow-hidden"> {/* Dodao overflow-hidden da se blur ne siri izvan diva */}
-      <h1
-        ref={h1Ref} // Postavljamo ref na h1 element
-        key={rotatingTexts[currentIndex]}
-        className="font-sans text-4xl md:text-6xl font-bold uppercase tracking-tight text-main-white text-center will-change-transform will-change-opacity will-change-filter" // Dodao will-change za perf
-        style={{
-          transform: `translateY(${translateY}px)`,
-          opacity: opacity,
-          filter: `blur(${blur}px)`,
-          transition: 'transform 0.1s ease-out, opacity 0.1s ease-out, filter 0.1s ease-out', // Glatka tranzicija
-        }}
-      >
-        {scrambledDisplay}
-      </h1>
+    <div className="relative text-center pt-48 pb-24 overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.h1
+          ref={h1Ref} // Postavljamo ref na h1 element
+          key={rotatingTexts[currentIndex]}
+          className="font-sans text-4xl md:text-6xl font-bold uppercase tracking-tight text-main-white text-center will-change-transform will-change-opacity will-change-filter" // Dodao will-change za perf
+          style={{
+            transform: `translateY(${translateY}px)`,
+            opacity: opacity,
+            filter: `blur(${blur}px)`,
+            transition: 'transform 0.1s ease-out, opacity 0.1s ease-out, filter 0.1s ease-out', // Glatka tranzicija
+          }}
+        >
+          {scrambledDisplay}
+        </motion.h1>
+      </AnimatePresence>
     </div>
   );
 };
