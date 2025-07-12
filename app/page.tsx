@@ -7,6 +7,8 @@ import IntroAnimation from '../components/layout/IntroAnimation';
 import { Header } from '../components/layout/Header';
 import TextRotator from '../components/sections/TextRotator';
 import WhatWeDoSection from '../components/sections/what-we-do-section';
+// AboutSection se više ne importa i ne renderira ovdje direktno
+// import AboutSection from '../components/sections/about-section';
 
 
 export default function HomePage() {
@@ -41,6 +43,7 @@ export default function HomePage() {
             <main>
               <TextRotator />
               <WhatWeDoSection />
+              {/* <AboutSection /> */}
             </main>
           </motion.div>
         </>
