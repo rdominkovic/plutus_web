@@ -76,6 +76,10 @@ const WhatWeDoSection = () => {
   const cardsContainerBlur = useTransform(scrollYProgress, [startFade, midFade, endFade], [0, 10, 30]);
   const cardsContainerFilter = useTransform(cardsContainerBlur, (v) => `blur(${v}px)`);
 
+  // NOVO: 'O nama' počinje ranije, dok je zadnja kartica još u fokusu
+  const aboutStart = (cardsTotal - 0.75) / scrollTotal; // Počinje se pojavljivati malo prije nego što zadnja kartica dođe u fokus
+  const aboutEnd = (cardsTotal + 0.25) / scrollTotal; // Potpuno vidljiv malo prije kraja fadeouta kartica
+
   // --- Animacija za "O nama" sekciju ---
   // Koristi ISTE točke kao i nestajanje kartica za savršenu sinkronizaciju
 
@@ -108,9 +112,8 @@ const WhatWeDoSection = () => {
         {/* AboutSection je sada SIBLING kontejneru s karticama i neće nestati s njim */}
         <AboutSection
           scrollYProgress={scrollYProgress}
-          startFade={startFade}
-          midFade={midFade}
-          endFade={endFade}
+          aboutStart={aboutStart}
+          aboutEnd={aboutEnd}
         />
       </div>
     </section>
