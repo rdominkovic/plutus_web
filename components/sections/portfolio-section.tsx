@@ -3,71 +3,59 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import Card from '../ui/card';
-import AboutSection from './about-section'; // Importamo AboutSection
+import AboutSection from './about-section';
 
-interface ServiceItem {
+interface PortfolioItem {
   title: string;
   description: string;
   imageUrl: string;
 }
 
-const serviceItems: ServiceItem[] = [
+const portfolioItems: PortfolioItem[] = [
     {
-    title: 'AI Automatizacija',
-    description: 'Implementacija naprednih AI rješenja za automatizaciju poslovnih procesa.',
-    imageUrl: 'https://via.placeholder.com/800x450/582fcd/f8f7f4?text=AI',
+    title: 'OptiFlow Procurement & Transport',
+    description: 'Web aplikacija olakšava optimizaciju procesa nabave različitih dobara i organizaciju transportnih usluga, podržavajući ručni unos podataka. Direktna komunikacija s dobavljačima i prikupljanje ponuda su potpuno automatizirani, osiguravajući efikasnost, optimizirane troškove i brže logističke procese.',
+    imageUrl: '/images/portfolio/optiflow.png',
   },
   {
-    title: 'Optimizacija Procesa',
-    description: 'Pametna optimizacija i digitalizacija poslovnih i proizvodnih procesa.',
-    imageUrl: 'https://via.placeholder.com/800x450/c3fb5e/000000?text=Optimizacija',
+    title: 'SmartWork Monitor',
+    description: 'Aplikacija koja digitalizira operativne procese omogućujući precizan unos podataka. Sustav pruža menadžmentu analitiku u stvarnom vremenu za praćenje učinkovitosti, troškova i ključnih statistika. Time se postiže povećana operativna transparentnost, optimizacija resursa i brže donošenje informiranih odluka koje doprinose rastu i konkurentnosti poslovanja.',
+    imageUrl: '/images/portfolio/SmartWorkMonitor.png',
   },
   {
-    title: 'Integracija Sustava',
-    description: 'Povezivanje softverskih alata i platformi u jedinstven ekosustav.',
-    imageUrl: 'https://via.placeholder.com/800x450/f8f7f4/000000?text=Integracija',
+    title: 'Automatizacija Marketinga',
+    description: 'Implementacija pametnih sustava za automatizaciju marketinških kampanja i analizu podataka.',
+    imageUrl: 'https://via.placeholder.com/800x450/f8f7f4/000000?text=Marketing',
   },
   {
-    title: 'CRM Rješenja',
-    description: 'Custom CRM sustavi za upravljanje odnosima s klijentima.',
-    imageUrl: 'https://via.placeholder.com/800x450/007aff/f8f7f4?text=CRM',
-  },
-  {
-    title: 'Fintech Analitika',
-    description: 'Napredna vizualizacija i analiza financijskih podataka.',
-    imageUrl: 'https://via.placeholder.com/800x450/fbbf24/000000?text=Fintech',
-  },
-  {
-    title: 'Logistička Platforma',
-    description: 'Praćenje i optimizacija logističkih procesa u realnom vremenu.',
+    title: 'Logistička Optimizacija',
+    description: 'Napredna rješenja za optimizaciju ruta, upravljanje zalihama i praćenje pošiljki.',
     imageUrl: 'https://via.placeholder.com/800x450/f43f5e/f8f7f4?text=Logistika',
   },
 ];
 
 const cardBgColors = [
-  'bg-blue-700',
-  'bg-green-700',
+  'bg-emerald-700',
+  'bg-slate-700',
   'bg-purple-700',
   'bg-pink-700',
-  'bg-yellow-700',
-  'bg-red-700',
 ];
 
-const WhatWeDoSection = () => {
+const PortfolioSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: scrollRef,
     offset: ['start start', 'end end'],
   });
 
-  const cardsTotal = serviceItems.length;
-  // Vraćam dodatni scroll prostor za grupnu animaciju
-  const scrollTotal = cardsTotal + 1;
+  const cardsTotal = portfolioItems.length;
+  // Smanjujem dodatni scroll prostor da bi se smanjio prazni hod nakon fade-a
+  const scrollTotal = cardsTotal + 0.5;
 
-  // Vraćam ispravne pragove za dvostepeno nestajanje
-  const startFade = cardsTotal / scrollTotal; // Počinje kad zadnja kartica završi s fokusom
-  const midFade = (cardsTotal + 0.5) / scrollTotal; // Sredina (prvi scroll)
-  const endFade = 1; // Kraj (drugi scroll)
+  // Pragovi za nestajanje kartica (ostaju isti kao korisnikova promjena)
+  const startFade = cardsTotal / scrollTotal;
+  const midFade = (cardsTotal + 0.3) / scrollTotal;
+  const endFade = (cardsTotal + 0.5) / scrollTotal;
 
   // Faza 1: Blago nestajanje. Faza 2: Potpuno nestajanje.
   // Ove animacije se sada primjenjuju SAMO na kontejner s karticama
@@ -76,15 +64,13 @@ const WhatWeDoSection = () => {
   const cardsContainerBlur = useTransform(scrollYProgress, [startFade, midFade, endFade], [0, 10, 30]);
   const cardsContainerFilter = useTransform(cardsContainerBlur, (v) => `blur(${v}px)`);
 
-  // NOVO: 'O nama' počinje ranije, dok je zadnja kartica još u fokusu
-  const aboutStart = (cardsTotal - 0.75) / scrollTotal; // Počinje se pojavljivati malo prije nego što zadnja kartica dođe u fokus
-  const aboutEnd = (cardsTotal + 0.25) / scrollTotal; // Potpuno vidljiv malo prije kraja fadeouta kartica
+  // About počinje točno kad i fade kartica, i završava brže za brzo pojavljivanje
+  const aboutStart = startFade;
+  const aboutEnd = (cardsTotal + 0.3) / scrollTotal; // Završava prije potpunog fade-a kartica
 
-  // --- Animacija za "O nama" sekciju ---
-  // Koristi ISTE točke kao i nestajanje kartica za savršenu sinkronizaciju
 
   return (
-    <section id="what-we-do" className="relative bg-main-black">
+    <section id="portfolio" className="relative bg-main-black">
       {/* Glavni kontejner koji prati scroll i definira ukupnu visinu */}
       <div ref={scrollRef} className="relative" style={{ height: `${scrollTotal * 100}vh` }}>
         
@@ -97,8 +83,8 @@ const WhatWeDoSection = () => {
             filter: cardsContainerFilter,
           }}
         >
-          {serviceItems.map((item, i) => (
-            <StickyServiceCard
+          {portfolioItems.map((item, i) => (
+            <StickyPortfolioCard
               key={item.title}
               i={i}
               {...item}
@@ -120,7 +106,7 @@ const WhatWeDoSection = () => {
   );
 };
 
-interface StickyServiceCardProps {
+interface StickyPortfolioCardProps {
   i: number;
   title: string;
   description: string;
@@ -130,7 +116,7 @@ interface StickyServiceCardProps {
   total: number;
 }
 
-const StickyServiceCard = ({ i, title, description, imageUrl, colorClass, scrollYProgress, total }: StickyServiceCardProps) => {
+const StickyPortfolioCard = ({ i, title, description, imageUrl, colorClass, scrollYProgress, total }: StickyPortfolioCardProps) => {
   // Precizna definicija animacije za slaganje kao na Muradov stranici
   const inputRange = [
     i / total,          // 1. Kartica je u fokusu
@@ -175,4 +161,4 @@ const StickyServiceCard = ({ i, title, description, imageUrl, colorClass, scroll
   );
 };
 
-export default WhatWeDoSection;
+export default PortfolioSection;

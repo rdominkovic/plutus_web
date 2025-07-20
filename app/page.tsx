@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import IntroAnimation from '../components/layout/IntroAnimation';
 import { Header } from '../components/layout/Header';
 import TextRotator from '../components/sections/TextRotator';
-import WhatWeDoSection from '../components/sections/what-we-do-section';
+import PortfolioSection from '../components/sections/portfolio-section';
 // AboutSection se više ne importa i ne renderira ovdje direktno
 // import AboutSection from '../components/sections/about-section';
 
@@ -42,7 +42,7 @@ export default function HomePage() {
           >
             <main>
               <TextRotator />
-              <WhatWeDoSection />
+              <PortfolioSection />
               {/* <AboutSection /> */}
             </main>
           </motion.div>
