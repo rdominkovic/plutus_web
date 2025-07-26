@@ -8,37 +8,38 @@ import AboutSection from './about-section';
 interface PortfolioItem {
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
+  videoUrl?: string;
 }
 
 const portfolioItems: PortfolioItem[] = [
     {
     title: 'OptiFlow Procurement & Transport',
-    description: 'Web aplikacija olakšava optimizaciju procesa nabave različitih dobara i organizaciju transportnih usluga, podržavajući ručni unos podataka. Direktna komunikacija s dobavljačima i prikupljanje ponuda su potpuno automatizirani, osiguravajući efikasnost, optimizirane troškove i brže logističke procese.',
+    description: 'Web aplikacija olakšava optimizaciju procesa nabave različitih dobara i organizaciju transportnih usluga. Direktna komunikacija s dobavljačima i prikupljanje ponuda su potpuno automatizirani, osiguravajući efikasnost, optimizirane troškove i brže logističke procese.',
     imageUrl: '/images/portfolio/optiflow.png',
   },
   {
     title: 'SmartWork Monitor',
-    description: 'Aplikacija koja digitalizira operativne procese omogućujući precizan unos podataka. Sustav pruža menadžmentu analitiku u stvarnom vremenu za praćenje učinkovitosti, troškova i ključnih statistika. Time se postiže povećana operativna transparentnost, optimizacija resursa i brže donošenje informiranih odluka koje doprinose rastu i konkurentnosti poslovanja.',
+    description: 'Aplikacija koja digitalizira operativne procese omogućujući precizan unos podataka. Sustav pruža analitiku u stvarnom vremenu za praćenje učinkovitosti, troškova i ključnih statistika. Time se postiže povećana operativna transparentnost, optimizacija resursa i brže donošenje informiranih odluka koje doprinose rastu i konkurentnosti poslovanja.',
     imageUrl: '/images/portfolio/SmartWorkMonitor.png',
   },
   {
-    title: 'Automatizacija Marketinga',
-    description: 'Implementacija pametnih sustava za automatizaciju marketinških kampanja i analizu podataka.',
-    imageUrl: 'https://via.placeholder.com/800x450/f8f7f4/000000?text=Marketing',
+    title: 'Digital Data Miner',
+    description: 'Ova AI-pokretana Python skripta automatizira kompleksno prikupljanje web podataka s dvo-razinskom selekcijom, drastično smanjujući vrijeme potrebno za obavljanje monotonih zadataka. Omogućuje brzu isporuku preciznih podataka u različitim formatima (xlsx, docx, json, csv, xml, md), oslobađajući ljudske resurse za strateški važnije aktivnosti.',
+    videoUrl: '/video/portfolio/Digital_data_miner.mp4',
   },
   {
-    title: 'Logistička Optimizacija',
-    description: 'Napredna rješenja za optimizaciju ruta, upravljanje zalihama i praćenje pošiljki.',
-    imageUrl: 'https://via.placeholder.com/800x450/f43f5e/f8f7f4?text=Logistika',
+    title: 'Interni ChatGPT',
+    description: 'Interni AI chatbot integriran u web stranicu pruža trenutan pristup verificiranim odgovorima iz opsežne baze znanja. Navođenjem točnih izvora, sustav štedi vrijeme zaposlenika i drastično povećava operativnu efikasnost.',
+    imageUrl: '/images/portfolio/ai_chatbot.png',
   },
 ];
 
 const cardBgColors = [
-  'bg-emerald-700',
-  'bg-slate-700',
-  'bg-purple-700',
-  'bg-pink-700',
+  'bg-teal-900',
+  'bg-slate-800',
+  'bg-blue-900',
+  'bg-green-900',
 ];
 
 const PortfolioSection = () => {
@@ -110,13 +111,14 @@ interface StickyPortfolioCardProps {
   i: number;
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
+  videoUrl?: string;
   colorClass: string;
   scrollYProgress: MotionValue<number>;
   total: number;
 }
 
-const StickyPortfolioCard = ({ i, title, description, imageUrl, colorClass, scrollYProgress, total }: StickyPortfolioCardProps) => {
+const StickyPortfolioCard = ({ i, title, description, imageUrl, videoUrl, colorClass, scrollYProgress, total }: StickyPortfolioCardProps) => {
   // Precizna definicija animacije za slaganje kao na Muradov stranici
   const inputRange = [
     i / total,          // 1. Kartica je u fokusu
@@ -146,13 +148,37 @@ const StickyPortfolioCard = ({ i, title, description, imageUrl, colorClass, scro
       }}
     >
       <Card className={`overflow-hidden rounded-2xl shadow-2xl w-full h-[500px] flex flex-col ${colorClass}`}>
-        <img
-          src={imageUrl}
-          alt={title}
-          className="w-full h-1/2 object-cover rounded-t-2xl"
-          loading="lazy"
-        />
-        <div className="p-6 flex flex-col gap-2 justify-center h-1/2">
+        <div className="relative h-1/2 w-full">
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt={title}
+              className="h-full w-full rounded-t-2xl object-cover"
+              loading="lazy"
+            />
+          )}
+          {videoUrl && (
+            <video
+              src={videoUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="h-full w-full rounded-t-2xl object-cover"
+            />
+          )}
+          {i === 2 && (
+            <p className="absolute bottom-1 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-mono text-main-white backdrop-blur-sm">
+              Video ilustrira automatizirani pozadinski proces skripte, a ne front-end sučelje aplikacije.
+            </p>
+          )}
+          {(i === 0 || i === 1) && (
+            <p className="absolute bottom-1 right-2 rounded bg-black/40 px-1.5 py-0.5 text-[10px] font-mono text-main-white/90 backdrop-blur-sm">
+              Ilustrativna slika: Konceptualni prikaz sučelja radi zaštite povjerljivosti podataka klijenta.
+            </p>
+          )}
+        </div>
+        <div className="p-6 flex flex-col justify-center h-1/2">
           <h3 className="font-mono text-xl md:text-2xl uppercase text-white mb-2">{title}</h3>
           <p className="font-sans text-gray-300 text-base md:text-lg">{description}</p>
         </div>
