@@ -96,12 +96,7 @@ const PortfolioSection = () => {
           ))}
         </motion.div>
 
-        {/* AboutSection je sada SIBLING kontejneru s karticama i neće nestati s njim */}
-        <AboutSection
-          scrollYProgress={scrollYProgress}
-          aboutStart={aboutStart}
-          aboutEnd={aboutEnd}
-        />
+        {/* AboutSection je uklonjena iz portfolio sekcije */}
       </div>
     </section>
   );
