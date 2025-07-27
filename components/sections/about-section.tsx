@@ -11,9 +11,13 @@ interface AboutSectionProps {
 
 const AboutSection = ({ scrollYProgress, aboutStart, aboutEnd, scrollTotal }: AboutSectionProps) => {
   // Jednostavna fade-in/fade-out logika
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.8]);
-  const y = useTransform(scrollYProgress, [0, 0.3], ['100px', '0px']);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 0.85, 1], [0, 1, 1, 0.3, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 0.85, 1], [0.9, 1, 1, 0.9, 0.8]);
+  const y = useTransform(scrollYProgress, [0, 0.5, 0.7, 0.75  , 0.85, 1], ['100px', '0px', '0px', '-100px', '-200px', '-400px']);
+  
+  // Blur spojeno sa ostalim fade-out efektima - identično portfolio-u
+  const blur = useTransform(scrollYProgress, [0.7, 0.85, 1], [0, 10, 30]);
+  const filter = useTransform(blur, (v) => `blur(${v}px)`);
 
   return (
     <section id="about" className="sticky top-1/2 -translate-y-1/2 w-full h-screen flex items-center justify-center z-10">
@@ -22,7 +26,8 @@ const AboutSection = ({ scrollYProgress, aboutStart, aboutEnd, scrollTotal }: Ab
         style={{ 
           opacity,
           y,
-          scale
+          scale,
+          filter  // Dodajem filter sa blur-om
         }}
       >
         <h3
