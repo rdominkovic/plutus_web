@@ -51,12 +51,9 @@ export default function HomePage() {
               <PortfolioSection />
               
               {/* "O nama" sekcija sa smanjenom visinom */}
-              <section ref={aboutRef} className="relative bg-black" style={{ height: '40vh' }}>
+              <section ref={aboutRef} className="relative bg-black" style={{ height: '100vh' }}>
                 <AboutSection
                   scrollYProgress={aboutScrollProgress}
-                  aboutStart={0}
-                  aboutEnd={0.3}
-                  scrollTotal={1.0} // Vrijednost je ažurirana da odgovara visini
                 />
               </section>
 
