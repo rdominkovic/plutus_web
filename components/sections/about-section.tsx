@@ -1,3 +1,4 @@
+// path: components/sections/about-section.tsx
 'use client';
 
 import { motion, useTransform, MotionValue } from 'framer-motion';
@@ -6,28 +7,29 @@ interface AboutSectionProps {
   scrollYProgress: MotionValue<number>;
   aboutStart: number;
   aboutEnd: number;
-  scrollTotal: number; // Dodano za izračun fadeout pozicija
+  scrollTotal: number;
 }
 
 const AboutSection = ({ scrollYProgress, aboutStart, aboutEnd, scrollTotal }: AboutSectionProps) => {
-  // Jednostavna fade-in/fade-out logika
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 0.85, 1], [0, 1, 1, 0.3, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 0.85, 1], [0.9, 1, 1, 0.9, 0.8]);
-  const y = useTransform(scrollYProgress, [0, 0.5, 0.7, 0.75  , 0.85, 1], ['100px', '0px', '0px', '-100px', '-200px', '-400px']);
+  // Fade-in, zatim statično, zatim fade-out tek kada počne odlaziti
+  const opacity = useTransform(scrollYProgress, [0, 0, 0.8, 0.9, 1], [0, 1, 1, 0.3, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0, 0.8, 0.9, 1], [0.9, 1, 1, 0.9, 0.8]);
+  const y = useTransform(scrollYProgress, [0, 0, 0.8, 0.9, 1], ['100px', '0px', '0px', '-100px', '-200px']);
   
-  // Blur spojeno sa ostalim fade-out efektima - identično portfolio-u
-  const blur = useTransform(scrollYProgress, [0.7, 0.85, 1], [0, 10, 30]);
+  // Blur počinje tek kada počne fade out animacija
+  const blur = useTransform(scrollYProgress, [0.9, 1], [0, 30]);
   const filter = useTransform(blur, (v) => `blur(${v}px)`);
 
   return (
-    <section id="about" className="sticky top-1/2 -translate-y-1/2 w-full h-screen flex items-center justify-center z-10">
+    // IZMJENA: Klasa h-screen je zamijenjena s py-8 za smanjenje visine i bolje sticky pozicioniranje
+    <section id="about" className="sticky top-1/2 -translate-y-1/2 w-full py-8 flex items-center justify-center z-10" style={{ position: 'sticky' }}>
       <motion.div
         className="container mx-auto max-w-3xl text-center"
         style={{ 
           opacity,
           y,
           scale,
-          filter  // Dodajem filter sa blur-om
+          filter
         }}
       >
         <h3
@@ -45,4 +47,4 @@ const AboutSection = ({ scrollYProgress, aboutStart, aboutEnd, scrollTotal }: Ab
   );
 };
 
-export default AboutSection; 
+export default AboutSection;

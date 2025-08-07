@@ -50,8 +50,8 @@ const PortfolioSection = () => {
   });
 
   const cardsTotal = portfolioItems.length;
-  // Smanjujem dodatni scroll prostor da bi se smanjio prazni hod nakon fade-a
-  const scrollTotal = cardsTotal + 0.5;
+  // Povećavam dodatni scroll prostor za veći razmak između sekcija
+  const scrollTotal = cardsTotal + 0.35;
 
   // Pragovi za nestajanje kartica (ostaju isti kao korisnikova promjena)
   const startFade = cardsTotal / scrollTotal;
