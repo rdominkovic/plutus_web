@@ -3,22 +3,12 @@
 
 import { motion, useTransform, MotionValue } from 'framer-motion';
 
-interface AboutSectionProps {
-  scrollYProgress: MotionValue<number>;
-  aboutStart: number;
-  aboutEnd: number;
-  scrollTotal: number;
-}
-
 const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
-  // Animacija ulaska i mirovanja ostaje ista (od 0% do 85% skrola)
-  // Odlazna animacija (od 85% do 100%) je sada sinkronizirana
-  const opacity = useTransform(scrollYProgress, [0.25, 0.4, 0.85, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress,   [0.25, 0.4, 0.85, 1], [0.8, 1, 1, 0.8]);
-  const y = useTransform(scrollYProgress,       [0.25, 0.4, 0.85, 1], ['50px', '0px', '0px', '-150px']);
-  
-  // Blur sada počinje točno na 85% i završava na 100%, zajedno s ostalim animacijama
-  const blur = useTransform(scrollYProgress, [0.85, 1], [0, 50]);
+  // Dvostupanjski finiš: prvi dio jači, drugi dio suptilan
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 0.965, 1], [0, 1, 1, 0.3, 0]);
+  const scale   = useTransform(scrollYProgress, [0, 0.2, 0.9, 0.965, 1], [0.98, 1, 1, 0.83, 0.8]);
+  const y       = useTransform(scrollYProgress, [0, 0.2, 0.9, 0.965, 1], ['10px', '0px', '0px', '-80px', '-150px']);
+  const blur    = useTransform(scrollYProgress, [0.9, 0.965, 1], [0, 12, 30]);
   const filter = useTransform(blur, (v) => `blur(${v}px)`);
 
   return (

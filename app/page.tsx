@@ -8,6 +8,7 @@ import { Header } from '../components/layout/Header';
 import TextRotator from '../components/sections/TextRotator';
 import PortfolioSection from '../components/sections/portfolio-section';
 import AboutSection from '../components/sections/about-section';
+import { BottomNav } from '../components/layout/bottom-nav';
 
 
 export default function HomePage() {
@@ -50,11 +51,17 @@ export default function HomePage() {
               <TextRotator />
               <PortfolioSection />
               
-              {/* "O nama" sekcija sa smanjenom visinom */}
-              <section ref={aboutRef} className="relative bg-black" style={{ height: '100vh' }}>
-                <AboutSection
-                  scrollYProgress={aboutScrollProgress}
-                />
+              {/* "O nama" sekcija: dovoljno produžena da sticky ostane ~1–2 skrola, bez suvišnog praznog prostora */}
+              <section
+                id="about"
+                ref={aboutRef}
+                className="relative bg-black scroll-mt-24"
+                style={{ height: '70vh' }}
+              >
+                {/* Sticky kontejner u parent sekciji kao i portfolio kartice */}
+                <motion.div className="sticky top-1/2 -translate-y-1/2">
+                  <AboutSection scrollYProgress={aboutScrollProgress} />
+                </motion.div>
               </section>
 
               {/* Placeholder sekcija sa smanjenim gornjim prostorom */}
@@ -65,6 +72,7 @@ export default function HomePage() {
                 </div>
               </section>
             </main>
+            <BottomNav />
           </motion.div>
         </>
       )}
