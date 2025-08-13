@@ -84,7 +84,7 @@ export const BottomNav: React.FC = () => {
     if (id === 'about') {
       const rect = el.getBoundingClientRect();
       // Poravnaj vrh sekcije na 85% visine viewporta kako bi scrollYProgress krenuo od 0
-      const targetTop = window.scrollY + rect.top - window.innerHeight * 0.30;
+      const targetTop = window.scrollY + rect.top - window.innerHeight * 0.40;
       window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
       return;
     }

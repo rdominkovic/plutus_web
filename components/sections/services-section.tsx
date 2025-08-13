@@ -21,7 +21,6 @@ const servicesData: Service[] = [
     shortDescription:
       'Dizajniramo i razvijamo softverska rješenja po mjeri: od web aplikacija za optimizaciju procesa do sustava za praćenje ključnih poslovnih metrika. Rješenja su fokusirana na pouzdanost, sigurnost i mjerljive rezultate.',
     details: [
-      'Analiza poslovnih procesa i arhitektura sustava',
       'Razvoj web aplikacija (npr. za nabavu, logistiku)',
       'Implementacija sustava za praćenje učinkovitosti u proizvodnji',
       'Dizajn i optimizacija korisničkog sučelja (UI/UX)',
@@ -34,8 +33,7 @@ const servicesData: Service[] = [
     shortDescription:
       'Kreiramo pametne AI agente koji automatiziraju repetitivne zadatke, obrađuju podatke i pružaju internu podršku. Oslobađamo vaš tim za strateške ciljeve, smanjujući monotoni rad i povećavajući efikasnost.',
     details: [
-      'Razvoj internih AI chatbota (baziranih na vašim podacima)',
-      'Automatizirano prikupljanje i strukturiranje podataka (Data Mining)',
+      'Razvoj AI chatbota',
       'Automatizacija uredskih i administrativnih zadataka',
       'Integracija AI modela u postojeće poslovne aplikacije',
       'Kreiranje sustava za podršku pri odlučivanju',
@@ -109,8 +107,8 @@ const ServicesSection: React.FC = () => {
 
   const handleExpand = (index: number) => {
     setExpanded((prev) => {
-      // dozvoli samo jednu proširenu karticu u isto vrijeme
-      const next = new Set<number>();
+      // dozvoli više otvorenih kartica; jednom otvorena ostaje otvorena
+      const next = new Set(prev);
       next.add(index);
       return next;
     });

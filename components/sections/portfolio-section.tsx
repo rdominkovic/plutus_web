@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import Card from '../ui/card';
+import Image from 'next/image';
 import AboutSection from './about-section';
 
 interface PortfolioItem {
@@ -71,7 +72,8 @@ const PortfolioSection = () => {
 
 
   return (
-    <section id="portfolio" className="relative bg-main-black">
+    <section id="portfolio" className="relative bg-main-black" aria-labelledby="portfolio-heading">
+      <h2 id="portfolio-heading" className="sr-only">Portfolio radovi</h2>
       {/* Glavni kontejner koji prati scroll i definira ukupnu visinu */}
       <div ref={scrollRef} className="relative" style={{ height: `${scrollTotal * 100}svh` }}>
         
@@ -145,11 +147,14 @@ const StickyPortfolioCard = ({ i, title, description, imageUrl, videoUrl, colorC
       <Card className={`overflow-hidden rounded-2xl shadow-2xl w-full h-[500px] flex flex-col ${colorClass}`}>
         <div className="relative h-1/2 w-full">
           {imageUrl && (
-            <img
+            <Image
               src={imageUrl}
               alt={title}
+              fill={false as unknown as undefined}
+              width={1200}
+              height={600}
               className="h-full w-full rounded-t-2xl object-cover"
-              loading="lazy"
+              priority={i === 0}
             />
           )}
           {videoUrl && (

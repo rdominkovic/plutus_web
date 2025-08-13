@@ -16,11 +16,12 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const aboutRef = useRef<HTMLDivElement>(null);
   
-  // Scroll tracking za "O nama" sekciju
-  const { scrollYProgress: aboutScrollProgress } = useScroll({
-    target: aboutRef,
-    offset: ['start 50%', 'end 15%'],
-  });
+// Novi, pouzdaniji kod
+const { scrollYProgress: aboutScrollProgress } = useScroll({
+  target: aboutRef,
+  // Pratimo sekciju tijekom cijelog njezinog prolaska kroz ekran
+  offset: ['start start', 'end end'],
+});
 
   useEffect(() => {
     document.body.style.overflow = isLoading ? 'hidden' : 'auto';
