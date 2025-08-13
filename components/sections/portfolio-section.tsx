@@ -73,7 +73,7 @@ const PortfolioSection = () => {
   return (
     <section id="portfolio" className="relative bg-main-black">
       {/* Glavni kontejner koji prati scroll i definira ukupnu visinu */}
-      <div ref={scrollRef} className="relative" style={{ height: `${scrollTotal * 100}vh` }}>
+      <div ref={scrollRef} className="relative" style={{ height: `${scrollTotal * 100}svh` }}>
         
         {/* Ovaj motion.div obuhvaća SAMO kartice i upravlja njihovim grupnim nestajanjem */}
         <motion.div
@@ -133,9 +133,9 @@ const StickyPortfolioCard = ({ i, title, description, imageUrl, videoUrl, colorC
 
   return (
     <motion.div
-      className="sticky mx-auto max-w-3xl h-screen flex items-center"
+      className="sticky mx-auto max-w-3xl min-h-[100svh] flex items-center justify-center"
       style={{
-        top: 50,
+        top: 0,
         scale,
         y,
         opacity, // Vraćamo individualnu prozirnost

@@ -109,7 +109,7 @@ const TextRotator = () => {
   }, [currentIndex, scrambleToTarget]);
 
   return (
-    <div className="relative text-center pt-36 pb-5 overflow-hidden">
+    <div className="relative text-center min-h-[35svh] flex items-end justify-center pb-50 overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.h1
           key={rotatingTexts[currentIndex]}

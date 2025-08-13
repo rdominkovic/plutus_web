@@ -19,7 +19,7 @@ export default function HomePage() {
   // Scroll tracking za "O nama" sekciju
   const { scrollYProgress: aboutScrollProgress } = useScroll({
     target: aboutRef,
-    offset: ['start 85%', 'end 15%'],
+    offset: ['start 50%', 'end 15%'],
   });
 
   useEffect(() => {
