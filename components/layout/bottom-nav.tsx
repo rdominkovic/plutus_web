@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface NavItem {
@@ -14,6 +14,7 @@ export const BottomNav: React.FC = () => {
     () => [
       { id: 'portfolio', label: 'Portfolio', href: '#portfolio' },
       { id: 'about', label: 'O nama', href: '#about' },
+      { id: 'services', label: 'Usluge', href: '#services' },
     ],
     []
   );
@@ -30,22 +31,47 @@ export const BottomNav: React.FC = () => {
       return;
     }
 
+    // pratimo zadnje poznate omjere presjeka za svaku sekciju
+    const ratios: Record<string, number> = Object.fromEntries(sectionIds.map((id) => [id, 0]));
+
+    const pickActiveFromRatios = () => {
+      let bestId = sectionIds[0];
+      let bestRatio = -1;
+      for (const id of sectionIds) {
+        const r = ratios[id] ?? 0;
+        if (r > bestRatio) {
+          bestRatio = r;
+          bestId = id;
+        }
+      }
+      setActiveId(bestId);
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+        let changed = false;
+        for (const entry of entries) {
+          const id = entry.target.id;
+          const ratio = entry.intersectionRatio || 0;
+          if (ratios[id] !== ratio) {
+            ratios[id] = ratio;
+            changed = true;
           }
-        });
+        }
+        if (changed) {
+          pickActiveFromRatios();
+        }
       },
       {
         root: null,
         rootMargin: '0px',
-        threshold: 0.6, // aktivno kada je ~60% sekcije u viewportu
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
       }
     );
 
     sections.forEach((section) => observer.observe(section));
+    // inicijalno izračunaj trenutno stanje
+    pickActiveFromRatios();
     return () => observer.disconnect();
   }, [items]);
 
@@ -54,10 +80,11 @@ export const BottomNav: React.FC = () => {
     const el = document.getElementById(id);
     if (!el) return;
 
-    // Precizno centriranje za sticky "O nama" sekciju
+    // Precizno centriranje za sticky sekcije (trenutno: O nama)
     if (id === 'about') {
       const rect = el.getBoundingClientRect();
-      const targetTop = window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2;
+      // Poravnaj vrh sekcije na 85% visine viewporta kako bi scrollYProgress krenuo od 0
+      const targetTop = window.scrollY + rect.top - window.innerHeight * 0.30;
       window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
       return;
     }

@@ -4,11 +4,11 @@
 import { motion, useTransform, MotionValue } from 'framer-motion';
 
 const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
-  // Dvostupanjski finiš: prvi dio jači, drugi dio suptilan
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 0.965, 1], [0, 1, 1, 0.3, 0]);
-  const scale   = useTransform(scrollYProgress, [0, 0.2, 0.9, 0.965, 1], [0.98, 1, 1, 0.83, 0.8]);
-  const y       = useTransform(scrollYProgress, [0, 0.2, 0.9, 0.965, 1], ['10px', '0px', '0px', '-80px', '-150px']);
-  const blur    = useTransform(scrollYProgress, [0.9, 0.965, 1], [0, 12, 30]);
+  // Zaključano početno stanje (vidljivo i poravnano) + suptilniji long-tail izlaz na prvi sljedeći scroll
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.92, 1], [1, 1, 0.35, 0]);
+  const scale   = useTransform(scrollYProgress, [0, 0.4, 0.92, 1], [1, 1, 0.86, 0.82]);
+  const y       = useTransform(scrollYProgress, [0, 0.4, 0.92, 1], ['0px', '0px', '-70px', '-140px']);
+  const blur    = useTransform(scrollYProgress, [0.4, 0.92, 1], [0, 12, 30]);
   const filter = useTransform(blur, (v) => `blur(${v}px)`);
 
   return (
@@ -19,7 +19,8 @@ const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
           opacity,
           y,
           scale,
-          filter
+          filter,
+          willChange: 'opacity, transform, filter'
         }}
       >
         <h3

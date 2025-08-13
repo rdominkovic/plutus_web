@@ -9,6 +9,7 @@ import TextRotator from '../components/sections/TextRotator';
 import PortfolioSection from '../components/sections/portfolio-section';
 import AboutSection from '../components/sections/about-section';
 import { BottomNav } from '../components/layout/bottom-nav';
+import ServicesSection from '../components/sections/services-section';
 
 
 export default function HomePage() {
@@ -18,7 +19,7 @@ export default function HomePage() {
   // Scroll tracking za "O nama" sekciju
   const { scrollYProgress: aboutScrollProgress } = useScroll({
     target: aboutRef,
-    offset: ['start start', 'end end'],
+    offset: ['start 85%', 'end 15%'],
   });
 
   useEffect(() => {
@@ -64,13 +65,8 @@ export default function HomePage() {
                 </motion.div>
               </section>
 
-              {/* Placeholder sekcija sa smanjenim gornjim prostorom */}
-              <section className="h-auto py-48 flex items-center justify-center">
-                <div className="text-center">
-                  <h2 className="text-4xl font-mono">Placeholder Section</h2>
-                  <p className="text-white/60 mt-4">This space is for testing scroll animations.</p>
-                </div>
-              </section>
+              {/* Usluge sekcija */}
+              <ServicesSection />
             </main>
             <BottomNav />
           </motion.div>
