@@ -116,7 +116,7 @@ const ServicesSection: React.FC = () => {
 
   return (
     <section id="services" className="bg-black">
-      <div className="container mx-auto max-w-5xl px-4 py-24 md:py-32 min-h-[100svh] flex flex-col justify-center pb-[20svh]">
+      <div className="container mx-auto max-w-5xl px-4 py-24 md:py-12 min-h-[100svh] flex flex-col justify-center pb-[20svh]">
         <motion.div
           initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
