@@ -4,10 +4,10 @@
 import { motion, useTransform, MotionValue } from 'framer-motion';
 
 const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
-  const opacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);      // Fade out počinje tek na 80%
-  const scale   = useTransform(scrollYProgress, [0.8, 1], [1, 0.9]);     // Scale počinje tek na 80%
-  const y       = useTransform(scrollYProgress, [0.8, 1], ['0px', '-500px']); // Pomak počinje tek na 80%
-  const blur    = useTransform(scrollYProgress, [0.8, 1], [0, 25]);      // Blur počinje tek na 80%
+  const scale   = useTransform(scrollYProgress, [0.68, 0.9], [1, 0.9]);     // Scale počinje tek na 65%
+  const opacity = useTransform(scrollYProgress, [0.68, 0.9], [1, 0]);      // Fade out počinje tek na 65%
+  const y       = useTransform(scrollYProgress, [0.68, 0.9], ['0px', '-500px']); // Pomak počinje tek na 65%
+  const blur    = useTransform(scrollYProgress, [0.68, 0.9], [0, 25]);      // Blur počinje tek na 65%
   const filter  = useTransform(blur, (v) => `blur(${v}px)`);
   return (
     // Ovdje ide ostatak JSX-a za komponentu, nema potrebe za promjenom...

@@ -10,6 +10,7 @@ import PortfolioSection from '../components/sections/portfolio-section';
 import AboutSection from '../components/sections/about-section';
 import { BottomNav } from '../components/layout/bottom-nav';
 import ServicesSection from '../components/sections/services-section';
+import ContactSection from '../components/sections/contact-section';
 
 
 export default function HomePage() {
@@ -68,6 +69,14 @@ const { scrollYProgress: aboutScrollProgress } = useScroll({
 
               {/* Usluge sekcija */}
               <ServicesSection />
+              
+              {/* Kontejner za kraj stranice koji centrira kontaktnu sekciju */}
+              <section 
+                id="contact" 
+                className="relative flex items-center justify-center min-h-screen bg-black px-4"
+              >
+                <ContactSection />
+              </section>
             </main>
             <BottomNav />
           </motion.div>

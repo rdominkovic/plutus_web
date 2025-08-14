@@ -15,6 +15,7 @@ export const BottomNav: React.FC = () => {
       { id: 'portfolio', label: 'Portfolio', href: '#portfolio' },
       { id: 'about', label: 'O nama', href: '#about' },
       { id: 'services', label: 'Usluge', href: '#services' },
+      { id: 'contact', label: 'Kontakt', href: '#contact' },
     ],
     []
   );
@@ -86,6 +87,17 @@ export const BottomNav: React.FC = () => {
       // Poravnaj vrh sekcije na 85% visine viewporta kako bi scrollYProgress krenuo od 0
       const targetTop = window.scrollY + rect.top - window.innerHeight * 0.40;
       window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+      return;
+    }
+
+    // Posebno centriranje za kontaktnu sekciju
+    if (id === 'contact') {
+      // Skrolaj na sam kraj stranice i centriraj kontaktnu sekciju
+      const documentHeight = document.documentElement.scrollHeight;
+      const viewportHeight = window.innerHeight;
+      const targetTop = documentHeight - viewportHeight;
+      
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
       return;
     }
 
