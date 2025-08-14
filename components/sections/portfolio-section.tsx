@@ -15,23 +15,23 @@ interface PortfolioItem {
 
 const portfolioItems: PortfolioItem[] = [
     {
-    title: 'OptiFlow Procurement & Transport',
-    description: 'Web aplikacija olakšava optimizaciju procesa nabave različitih dobara i organizaciju transportnih usluga. Direktna komunikacija s dobavljačima i prikupljanje ponuda su potpuno automatizirani, osiguravajući efikasnost, optimizirane troškove i brže logističke procese.',
+    title: 'LogiSync',
+    description: 'Platforma po mjeri za automatizaciju nabave i logistike. Optimizira slanje upita, drastično smanjuje administrativni posao i osigurava značajne uštede. Eliminira kaos praćenja ponuda putem emailova i centralizira podatke, pružajući potpunu kontrolu za donošenje brzih i isplativih odluka.',
     imageUrl: '/images/portfolio/optiflow.png',
   },
   {
     title: 'SmartWork Monitor',
-    description: 'Aplikacija koja digitalizira operativne procese omogućujući precizan unos podataka. Sustav pruža analitiku u stvarnom vremenu za praćenje učinkovitosti, troškova i ključnih statistika. Time se postiže povećana operativna transparentnost, optimizacija resursa i brže donošenje informiranih odluka koje doprinose rastu i konkurentnosti poslovanja.',
+    description: 'Platforma koja operativne procese pretvara u mjerljive podatke. Digitalizacijom proizvodnje i uvođenjem RFID evidencije, klijentu smo eliminirali papirnu administraciju i osigurali preciznost unosa. Sustav pruža ključne statistike u stvarnom vremenu za optimizaciju resursa i donošenje konkurentnih odluka.',
     imageUrl: '/images/portfolio/SmartWorkMonitor.png',
   },
   {
     title: 'Digital Data Miner',
-    description: 'Ova AI-pokretana Python skripta automatizira kompleksno prikupljanje web podataka s dvo-razinskom selekcijom, drastično smanjujući vrijeme potrebno za obavljanje monotonih zadataka. Omogućuje brzu isporuku preciznih podataka u različitim formatima (xlsx, docx, json, csv, xml, md), oslobađajući ljudske resurse za strateški važnije aktivnosti.',
+    description: 'AI-pokretan alat koji automatizira kompleksno prikupljanje web podataka. Korištenjem jedinstvene dvo-razinske selekcije, pretvara sate monotonog rada u sekunde, isporučujući precizne podatke u više formata (CSV, JSON, DOCX). Klijentu oslobađa ključne resurse za fokus na strateške, a ne repetitivne zadatke.',
     videoUrl: '/video/portfolio/Digital_data_miner.mp4',
   },
   {
     title: 'Interni ChatGPT',
-    description: 'Interni AI chatbot integriran u web stranicu pruža trenutan pristup verificiranim odgovorima iz opsežne baze znanja. Navođenjem točnih izvora, sustav štedi vrijeme zaposlenika i drastično povećava operativnu efikasnost.',
+    description: 'Interni AI ekspert s bazom znanja od preko 60 stručnih knjiga (30.000+ stranica). Asistent pruža zaposlenicima trenutačne, verificirane odgovore s navođenjem izvora. Ovim rješenjem klijentu smo uštedjeli stotine radnih sati, drastično povećali efikasnost i oslobodili tim za strateške zadatke.',
     imageUrl: '/images/portfolio/ai_chatbot.png',
   },
 ];
@@ -179,9 +179,10 @@ const StickyPortfolioCard = ({ i, title, description, imageUrl, videoUrl, colorC
           )}
         </div>
         <div className="p-6 flex flex-col justify-center h-1/2">
-          <h3 className="font-mono text-xl md:text-2xl uppercase text-white mb-2">{title}</h3>
-          <p className="font-sans text-gray-300 text-base md:text-lg">{description}</p>
-        </div>
+  <h3 className="font-mono text-xl md:text-2xl uppercase text-white mb-4">{title}</h3>
+  <hr className="border-white/20 mb-4" />
+  <p className="font-sans text-gray-300 text-base md:text-lg">{description}</p>
+</div>
       </Card>
     </motion.div>
   );
