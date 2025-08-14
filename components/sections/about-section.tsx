@@ -11,7 +11,7 @@ const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
   const filter  = useTransform(blur, (v) => `blur(${v}px)`);
   return (
     // Ovdje ide ostatak JSX-a za komponentu, nema potrebe za promjenom...
-    <div className="container mx-auto max-w-3xl text-center">
+    <div className="container mx-auto max-w-4xl text-center">
       <motion.div
         style={{ 
           opacity,
@@ -26,11 +26,19 @@ const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
         >
           ../O NAMA
         </h3>
-        <p
-          className="font-sans text-2xl md:text-3xl lg:text-4xl !leading-tight uppercase text-white"
-        >
-          Mi smo Plutus, tim specijaliziran za AI automatizaciju i optimizaciju procesa. Kreiramo pametna rješenja koja unapređuju vaše poslovanje i donose konkretne rezultate.
-        </p>
+        <div className="space-y-6">
+          <p
+            className="font-sans text-xl md:text-2xl lg:text-3xl !leading-tight text-white"
+          >
+            Svijet se mijenja. Velike riječi tehnoloških lidera nisu daleka budućnost – one su današnja stvarnost. U toj novoj eri, pobjednici neće biti oni koji se opiru, već oni koji iskoriste snagu umjetne inteligencije.
+          </p>
+          
+          <p
+            className="font-sans text-xl md:text-2xl lg:text-3xl !leading-tight text-white"
+          >
+            Tu nastupa Plutus. Mi pretvaramo kompleksnost AI tehnologije u vaše najjače oružje. Naš posao je da operativni kaos pretvorimo u red i vratimo vam najvrjedniji resurs – vrijeme. Mi smo partner koji vam osigurava da budete oni koji mijenjaju, a ne oni koji su zamijenjeni.
+          </p>
+        </div>
       </motion.div>
     </div>
   );

@@ -5,17 +5,42 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 
 const rotatingTexts = [
-  "UNAPREĐUJEMO VAŠE POSLOVANJE",
-  "AI AUTOMATIZACIJA",
-  "PROCESNA OPTIMIZACIJA",
-  "PAMETNA RJEŠENJA"
+  {
+    quote: "The future of AI is in our hands.",
+    author: "Tim Cook, CEO of Apple"
+  },
+  {
+    quote: "AI is unquestionably the most powerful technology force the world has ever known",
+    author: "Jensen Huang, CEO of Nvidia"
+  },
+  {
+    quote: "AI will not replace humans, but those who use AI will replace those who don't.",
+    author: "Ginni Rometty, Former CEO of IBM"
+  },
+  {
+    quote: "AI will enhance the ways humans experience the world.",
+    author: "Jeff Bezos, Founder of Amazon"
+  },
+  {
+    quote: "AI is going to reshape every industry and every job.",
+    author: "Reid Hoffman, Co-founder of LinkedIn"
+  },
+  {
+    quote: "AI is the new electricity.",
+    author: "Andrew Ng, Co-founder of Google Brain and Coursera"
+  },
+  {
+    quote: "AI has the potential to be more transformative than electricity or fire.",
+    author: "Sundar Pichai, CEO of Google"
+  }
 ];
 
-const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&/0123456789";
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%&/0123456789"; 
 
 const TextRotator = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [scrambledDisplay, setScrambledDisplay] = useState(rotatingTexts[0]);
+  const [scrambledDisplay, setScrambledDisplay] = useState(rotatingTexts[0].quote);
+  const [scrambledAuthor, setScrambledAuthor] = useState(rotatingTexts[0].author);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const scrambleIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -32,35 +57,40 @@ const TextRotator = () => {
   const blurFilter = useTransform(blur, (v) => `blur(${v}px)`);
 
 
-  const scrambleToTarget = useCallback((targetText: string): Promise<void> => {
+  const scrambleToTarget = useCallback((targetText: string, targetAuthor: string): Promise<void> => {
     return new Promise((resolve) => {
       if (scrambleIntervalRef.current) clearInterval(scrambleIntervalRef.current);
 
       let iteration = 0;
-      const originalChars = targetText.split('');
-      const maxIterations = targetText.length * 1.2;
+      const maxIterations = 8; // Smanjio sam broj iteracija
 
       scrambleIntervalRef.current = setInterval(() => {
-        const scrambled = originalChars
-          .map((char, index) => {
+        const scrambled = targetText.split('')
+          .map((char) => {
             if (char === ' ') return '\u00A0';
-            if (index < iteration) {
-              return char;
-            }
+            return characters[Math.floor(Math.random() * characters.length)];
+          })
+          .join('');
+
+        const scrambledAuthor = targetAuthor.split('')
+          .map((char) => {
+            if (char === ' ') return '\u00A0';
             return characters[Math.floor(Math.random() * characters.length)];
           })
           .join('');
 
         setScrambledDisplay(scrambled);
+        setScrambledAuthor(scrambledAuthor);
 
         if (iteration >= maxIterations) {
           clearInterval(scrambleIntervalRef.current as NodeJS.Timeout);
           scrambleIntervalRef.current = null;
           setScrambledDisplay(targetText);
+          setScrambledAuthor(targetAuthor);
           resolve();
         }
-        iteration += 0.75;
-      }, 25);
+        iteration += 1;
+      }, 50); // Povećao sam interval za brži efekt
     });
   }, []);
 
@@ -68,30 +98,39 @@ const TextRotator = () => {
     const runTextCycle = async () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-      const currentTargetText = rotatingTexts[currentIndex];
-      await scrambleToTarget(currentTargetText);
-      await new Promise(resolve => timeoutRef.current = setTimeout(resolve, 2500));
+      const currentTargetText = rotatingTexts[currentIndex].quote;
+      const currentTargetAuthor = rotatingTexts[currentIndex].author;
+      await scrambleToTarget(currentTargetText, currentTargetAuthor);
+      await new Promise(resolve => timeoutRef.current = setTimeout(resolve, 4500));
 
       const scrambleOutPromise = new Promise<void>(resolve => {
         let scrambleOutIteration = 0;
+        const maxScrambleOutIterations = 6; // Smanjio sam broj iteracija
+        
         const scrambleOutInterval = setInterval(() => {
           const scrambled = currentTargetText.split('')
-            .map((char, index) => {
+            .map((char: string) => {
               if (char === ' ') return '\u00A0';
-              if (index >= currentTargetText.length - 1 - scrambleOutIteration) {
-                return characters[Math.floor(Math.random() * characters.length)];
-              }
-              return char;
+              return characters[Math.floor(Math.random() * characters.length)];
             })
             .join('');
-          setScrambledDisplay(scrambled);
+          
+          const scrambledAuthor = currentTargetAuthor.split('')
+            .map((char: string) => {
+              if (char === ' ') return '\u00A0';
+              return characters[Math.floor(Math.random() * characters.length)];
+            })
+            .join('');
 
-          if (scrambleOutIteration >= currentTargetText.length * 0.75) {
+          setScrambledDisplay(scrambled);
+          setScrambledAuthor(scrambledAuthor);
+
+          if (scrambleOutIteration >= maxScrambleOutIterations) {
             clearInterval(scrambleOutInterval);
             resolve();
           }
-          scrambleOutIteration += 1.5;
-        }, 15);
+          scrambleOutIteration += 1;
+        }, 30); // Povećao sam interval za brži efekt
       });
 
       await scrambleOutPromise;
@@ -111,18 +150,36 @@ const TextRotator = () => {
   return (
     <div className="relative text-center min-h-[35svh] flex items-end justify-center pb-50 overflow-hidden">
       <AnimatePresence mode="wait">
-        <motion.h1
-          key={rotatingTexts[currentIndex]}
-          className="font-sans text-4xl md:text-6xl font-bold uppercase tracking-tight text-main-white text-center"
-          style={{
-            y,
-            opacity,
-            scale,
-            filter: blurFilter,
-          }}
-        >
-          {scrambledDisplay}
-        </motion.h1>
+        <div className="space-y-4 max-w-[95%] mx-auto">
+          <motion.h1
+            key={rotatingTexts[currentIndex].quote}
+            className={`font-sans font-bold tracking-tight text-main-white text-center text-2xl md:text-3xl lg:text-4xl ${
+              scrambledDisplay !== rotatingTexts[currentIndex].quote ? 'whitespace-nowrap' : 'break-words'
+            }`}
+            style={{
+              y,
+              opacity,
+              scale,
+              filter: blurFilter,
+            }}
+          >
+            "{scrambledDisplay}"
+          </motion.h1>
+          <motion.p
+            key={`${rotatingTexts[currentIndex].quote}-author`}
+            className={`font-sans text-lg md:text-xl text-white/80 text-center italic ${
+              scrambledAuthor !== rotatingTexts[currentIndex].author ? 'whitespace-nowrap' : 'break-words'
+            }`}
+            style={{
+              y,
+              opacity,
+              scale,
+              filter: blurFilter,
+            }}
+          >
+            – {scrambledAuthor}
+          </motion.p>
+        </div>
       </AnimatePresence>
     </div>
   );
