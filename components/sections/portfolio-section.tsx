@@ -17,7 +17,7 @@ const portfolioItems: PortfolioItem[] = [
     {
     title: 'LogiSync',
     description: 'Platforma po mjeri za automatizaciju nabave i logistike. Optimizira slanje upita, drastično smanjuje administrativni posao i osigurava značajne uštede. Eliminira kaos praćenja ponuda putem emailova i centralizira podatke, pružajući potpunu kontrolu za donošenje brzih i isplativih odluka.',
-    imageUrl: '/images/portfolio/optiflow.png',
+    imageUrl: '/images/portfolio/optiflow.webp',
   },
   {
     title: 'SmartWork Monitor',
