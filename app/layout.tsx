@@ -1,7 +1,11 @@
+// path: app/layout.tsx
+
 import '../styles/globals.css';
 import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://plutus.hr'),
@@ -58,6 +62,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               'AI agenti, automatizacija procesa i prilagođena softverska rješenja za optimizaciju poslovanja.',
           })}
         </Script>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
