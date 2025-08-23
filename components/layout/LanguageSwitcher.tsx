@@ -14,13 +14,10 @@ export const LanguageSwitcher = () => {
     }
   };
 
-  // Određujemo koji je jezik alternativni (na koji se može prebaciti)
-  const alternativeLocale = locale === 'hr' ? 'en' : 'hr';
-
   return (
-    <div className="flex items-center space-x-2 font-mono text-sm uppercase tracking-wide">
-      {/* Desktop verzija - prikazuje oba jezika s separatorom */}
-      <div className="hidden md:flex items-center space-x-2">
+    <>
+      {/* Desktop verzija - prikazuje oba jezika */}
+      <div className="hidden md:flex items-center space-x-2 font-mono text-sm uppercase tracking-wide">
         <button
           onClick={() => handleLanguageChange('hr')}
           className={`transition-colors duration-200 ${
@@ -46,16 +43,25 @@ export const LanguageSwitcher = () => {
         </button>
       </div>
 
-      {/* Mobilna verzija - prikazuje samo alternativni jezik */}
+      {/* Mobilna verzija - prikazuje samo onaj jezik na koji se može prebaciti */}
       <div className="md:hidden">
-        <button
-          onClick={() => handleLanguageChange(alternativeLocale)}
-          className="text-gray-400 hover:text-main-white cursor-pointer transition-colors duration-200"
-        >
-          {alternativeLocale.toUpperCase()}
-        </button>
+        {locale === 'hr' ? (
+          <button
+            onClick={() => handleLanguageChange('en')}
+            className="font-mono text-sm uppercase tracking-wide text-gray-400 hover:text-main-white cursor-pointer transition-colors duration-200"
+          >
+            EN
+          </button>
+        ) : (
+          <button
+            onClick={() => handleLanguageChange('hr')}
+            className="font-mono text-sm uppercase tracking-wide text-gray-400 hover:text-main-white cursor-pointer transition-colors duration-200"
+          >
+            HR
+          </button>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

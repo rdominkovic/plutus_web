@@ -55,7 +55,9 @@ const { scrollYProgress: aboutScrollProgress } = useScroll({
           >
             <main>
               <TextRotator />
-              <PortfolioSection />
+              <section id="portfolio">
+                <PortfolioSection />
+              </section>
               
               {/* "O nama" sekcija: dovoljno produžena da sticky ostane ~1–2 skrola, bez suvišnog praznog prostora */}
               <section

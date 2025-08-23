@@ -61,6 +61,18 @@ const TextRotator = () => {
   const arrowOpacity = useTransform(scrollY, [0, 50], [1, 0]);
   const arrowY = useTransform(scrollY, [0, 50], [0, 10]);
 
+  const handleScrollToPortfolio = () => {
+    const portfolioSection = document.querySelector('section:has(#portfolio)') || 
+                           document.getElementById('portfolio') ||
+                           document.querySelector('[data-section="portfolio"]');
+    
+    if (portfolioSection) {
+      portfolioSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   const scrambleToTarget = useCallback((targetText: string, targetAuthor: string): Promise<void> => {
     return new Promise((resolve) => {
@@ -187,13 +199,16 @@ const TextRotator = () => {
         </div>
       </AnimatePresence>
 
-      {/* Strelica za skrolanje */}
+      {/* Strelica za skrolanje - klikabilna i podignuta gore */}
       <motion.div
-        className="absolute bottom-32 left-1/2 transform -translate-x-1/2 md:bottom-40 text-white/60 md:hidden"
+        className="absolute bottom-40 left-1/2 transform -translate-x-1/2 md:bottom-40 text-white/60 md:hidden cursor-pointer"
         style={{
           opacity: arrowOpacity,
           y: arrowY,
         }}
+        onClick={handleScrollToPortfolio}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
       >
         <motion.div
           animate={{ 
