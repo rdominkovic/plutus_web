@@ -27,7 +27,7 @@ const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
 
   const desktopStart = 0.68;
   const desktopEnd = 0.90;
-  const mobileStart = 0.63; // krene točno kad prođe sredinu
+  const mobileStart = 0.67; // krene točno kad prođe sredinu
   const mobileEnd = 0.90;
 
   const scale = isMobile
