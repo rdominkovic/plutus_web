@@ -21,6 +21,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   return {
     title: t('title'),
     description: t('description'),
+    icons: '/favicon/favicon.ico',
     other: {
       'link[rel="preload"][href="/video/portfolio/Digital_data_miner.mp4"][as="video"][type="video/mp4"]': '',
       'link[rel="preload"][href="/images/portfolio/optiflow.webp"][as="image"][type="image/webp"]': '',
