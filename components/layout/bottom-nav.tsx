@@ -125,7 +125,7 @@ export const BottomNav: React.FC = () => {
               onClick={(e) => handleClick(e, item.id)}
               aria-current={isActive ? 'page' : undefined}
               className={[
-                'px-4 py-2 rounded-full text-xs md:text-sm font-mono uppercase transition-colors',
+                'px-3 md:px-4 py-2 rounded-full text-[10px] md:text-sm font-mono uppercase transition-colors whitespace-nowrap',
                 'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
                 isActive
                   ? 'bg-white/10 text-white border border-white/15'

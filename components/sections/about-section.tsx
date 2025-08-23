@@ -2,15 +2,53 @@
 'use client';
 
 import { motion, useTransform, MotionValue } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
-  const scale   = useTransform(scrollYProgress, [0.68, 0.9], [1, 0.9]);     // Scale počinje tek na 65%
-  const opacity = useTransform(scrollYProgress, [0.68, 0.9], [1, 0]);      // Fade out počinje tek na 65%
-  const y       = useTransform(scrollYProgress, [0.68, 0.9], ['0px', '-500px']); // Pomak počinje tek na 65%
-  const blur    = useTransform(scrollYProgress, [0.68, 0.9], [0, 25]);      // Blur počinje tek na 65%
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const handleChange = () => setIsMobile(mediaQuery.matches);
+    handleChange();
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+    } else {
+      mediaQuery.addListener(handleChange);
+    }
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handleChange);
+      } else {
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, []);
+
+  const desktopStart = 0.68;
+  const desktopEnd = 0.90;
+  const mobileStart = 0.63; // krene točno kad prođe sredinu
+  const mobileEnd = 0.90;
+
+  const scale = isMobile
+    ? useTransform(scrollYProgress, [0, mobileStart, mobileEnd], [1, 1, 0.9])
+    : useTransform(scrollYProgress, [desktopStart, desktopEnd], [1, 0.9]);
+
+  const opacity = isMobile
+    ? useTransform(scrollYProgress, [0, mobileStart, mobileEnd], [1, 1, 0])
+    : useTransform(scrollYProgress, [desktopStart, desktopEnd], [1, 0]);
+
+  const y = isMobile
+    ? useTransform(scrollYProgress, [0, mobileStart, mobileEnd], ['0px', '0px', '-500px'])
+    : useTransform(scrollYProgress, [desktopStart, desktopEnd], ['0px', '-500px']);
+
+  const blur = isMobile
+    ? useTransform(scrollYProgress, [0, mobileStart, mobileEnd], [0, 0, 20])
+    : useTransform(scrollYProgress, [desktopStart, desktopEnd], [0, 25]);
+
   const filter  = useTransform(blur, (v) => `blur(${v}px)`);
+
   return (
-    // Ovdje ide ostatak JSX-a za komponentu, nema potrebe za promjenom...
     <div className="container mx-auto max-w-4xl text-center">
       <motion.div
         style={{ 

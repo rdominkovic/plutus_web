@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const rotatingTexts = [
   {
@@ -55,6 +56,10 @@ const TextRotator = () => {
   const scale = useTransform(scrollY, scrollThreshold, [1, 0.5, 0.5]);
   const blur = useTransform(scrollY, scrollThreshold, [0, 8, 50]);
   const blurFilter = useTransform(blur, (v) => `blur(${v}px)`);
+
+  // Animacija za strelicu - nestaje kad se počne skrolati
+  const arrowOpacity = useTransform(scrollY, [0, 50], [1, 0]);
+  const arrowY = useTransform(scrollY, [0, 50], [0, 10]);
 
 
   const scrambleToTarget = useCallback((targetText: string, targetAuthor: string): Promise<void> => {
@@ -148,12 +153,12 @@ const TextRotator = () => {
   }, [currentIndex, scrambleToTarget]);
 
   return (
-    <div className="relative text-center min-h-[35svh] flex items-end justify-center pb-50 overflow-hidden">
+    <div className="relative text-center min-h-screen md:min-h-[35svh] flex items-center md:items-end justify-center overflow-hidden">
       <AnimatePresence mode="wait">
-        <div className="space-y-4 max-w-[95%] mx-auto">
+        <div className="space-y-4 max-w-[95%] mx-auto px-4 transform -translate-y-1/2 md:transform-none md:pb-50">
           <motion.h1
             key={rotatingTexts[currentIndex].quote}
-            className={`font-sans font-bold tracking-tight text-main-white text-center text-2xl md:text-3xl lg:text-4xl ${
+            className={`font-sans font-bold tracking-tight text-main-white text-center text-2xl md:text-3xl lg:text-4xl leading-relaxed overflow-hidden ${
               scrambledDisplay !== rotatingTexts[currentIndex].quote ? 'whitespace-nowrap' : 'break-words'
             }`}
             style={{
@@ -167,7 +172,7 @@ const TextRotator = () => {
           </motion.h1>
           <motion.p
             key={`${rotatingTexts[currentIndex].quote}-author`}
-            className={`font-sans text-lg md:text-xl text-white/80 text-center italic ${
+            className={`font-sans text-lg md:text-xl text-white/80 text-center italic leading-relaxed overflow-hidden ${
               scrambledAuthor !== rotatingTexts[currentIndex].author ? 'whitespace-nowrap' : 'break-words'
             }`}
             style={{
@@ -181,6 +186,29 @@ const TextRotator = () => {
           </motion.p>
         </div>
       </AnimatePresence>
+
+      {/* Strelica za skrolanje */}
+      <motion.div
+        className="absolute bottom-32 left-1/2 transform -translate-x-1/2 md:bottom-40 text-white/60"
+        style={{
+          opacity: arrowOpacity,
+          y: arrowY,
+        }}
+      >
+        <motion.div
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.6, 1, 0.6]
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <ChevronDownIcon className="h-6 w-6 md:h-8 md:w-8" />
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

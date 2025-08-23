@@ -29,12 +29,42 @@ const Marquee: React.FC = () => {
 // --- Glavna komponenta sekcije ---
 const ContactSection: React.FC = () => {
   const [isCopied, setIsCopied] = useState(false);
-  const email = 'robert.dominkovic@gmail.com';
+  const email = 'info@plutus.hr';
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(email).then(() => {
+    // Fallback rješenje za clipboard API
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(() => {
+        setIsCopied(true);
+      }).catch(() => {
+        // Fallback na stari način kopiranja
+        fallbackCopyTextToClipboard(email);
+      });
+    } else {
+      // Stari način kopiranja za browsere bez clipboard API
+      fallbackCopyTextToClipboard(email);
+    }
+  };
+
+  // Fallback funkcija za kopiranje teksta
+  const fallbackCopyTextToClipboard = (text: string) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+      document.execCommand('copy');
       setIsCopied(true);
-    });
+    } catch (err) {
+      console.error('Fallback: Neuspješno kopiranje', err);
+    }
+    
+    document.body.removeChild(textArea);
   };
 
   useEffect(() => {
@@ -83,7 +113,7 @@ const ContactSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
         viewport={{ once: true, amount: 0.8 }}
-        className="mt-8 flex items-center justify-center gap-x-6 font-mono text-xs uppercase tracking-widest text-white/70"
+        className="mt-8 flex flex-col md:flex-row items-center justify-center gap-y-4 md:gap-y-0 md:gap-x-6 font-mono text-xs uppercase tracking-widest text-white/70"
       >
         <a
           href={`mailto:${email}`}
@@ -97,7 +127,7 @@ const ContactSection: React.FC = () => {
           className="flex items-center gap-2 transition-colors hover:text-white"
         >
           {isCopied ? <ClipboardDocumentCheckIcon className="h-4 w-4 text-accent-green" /> : <ClipboardDocumentCheckIcon className="h-4 w-4" />}
-          <span>[ {isCopied ? 'Kopirano!' : 'Kopiraj Email'} ]</span>
+          <span>[ {isCopied ? 'Kopirano!' : 'Kopiraj e-mail'} ]</span>
         </button>
       </motion.div>
     </div>

@@ -137,15 +137,15 @@ const StickyPortfolioCard = ({ i, title, description, imageUrl, videoUrl, colorC
     <motion.div
       className="sticky mx-auto max-w-3xl min-h-[100svh] flex items-center justify-center"
       style={{
-        top: 0,
+        top: '2rem',
         scale,
         y,
         opacity, // Vraćamo individualnu prozirnost
         zIndex: i,
       }}
     >
-      <Card className={`overflow-hidden rounded-2xl shadow-2xl w-full h-[500px] flex flex-col ${colorClass}`}>
-        <div className="relative h-1/2 w-full">
+      <Card className={`overflow-hidden rounded-2xl shadow-2xl w-full h-auto min-h-[500px] md:h-[500px] flex flex-col ${colorClass}`}>
+        <div className="relative h-48 md:h-1/2 w-full">
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -178,11 +178,11 @@ const StickyPortfolioCard = ({ i, title, description, imageUrl, videoUrl, colorC
             </p>
           )}
         </div>
-        <div className="p-6 flex flex-col justify-center h-1/2">
-  <h3 className="font-mono text-xl md:text-2xl uppercase text-white mb-4">{title}</h3>
-  <hr className="border-white/20 mb-4" />
-  <p className="font-sans text-gray-300 text-base md:text-lg">{description}</p>
-</div>
+        <div className="p-4 md:p-6 flex flex-col justify-start md:justify-center h-auto md:h-1/2 flex-1">
+          <h3 className="font-mono text-lg md:text-xl lg:text-2xl uppercase text-white mb-3 md:mb-4">{title}</h3>
+          <hr className="border-white/20 mb-3 md:mb-4" />
+          <p className="font-sans text-gray-300 text-sm md:text-base lg:text-lg leading-relaxed">{description}</p>
+        </div>
       </Card>
     </motion.div>
   );

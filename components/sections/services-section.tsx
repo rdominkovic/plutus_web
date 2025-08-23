@@ -21,7 +21,7 @@ const servicesData: Service[] = [
     shortDescription:
       'Dizajniramo i razvijamo softverska rješenja po mjeri: od web aplikacija za optimizaciju procesa do sustava za praćenje ključnih poslovnih metrika. Rješenja su fokusirana na pouzdanost, sigurnost i mjerljive rezultate.',
     details: [
-      'Razvoj web aplikacija (npr. za nabavu, logistiku)',
+      'Razvoj web aplikacija',
       'Implementacija sustava za praćenje učinkovitosti u proizvodnji',
       'Dizajn i optimizacija korisničkog sučelja (UI/UX)',
       'Integracija s postojećim alatima i API-jevima',
