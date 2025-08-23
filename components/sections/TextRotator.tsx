@@ -189,7 +189,7 @@ const TextRotator = () => {
 
       {/* Strelica za skrolanje */}
       <motion.div
-        className="absolute bottom-32 left-1/2 transform -translate-x-1/2 md:bottom-40 text-white/60"
+        className="absolute bottom-32 left-1/2 transform -translate-x-1/2 md:bottom-40 text-white/60 md:hidden"
         style={{
           opacity: arrowOpacity,
           y: arrowY,

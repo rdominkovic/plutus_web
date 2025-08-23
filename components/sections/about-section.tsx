@@ -3,8 +3,10 @@
 
 import { motion, useTransform, MotionValue } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
+  const t = useTranslations('AboutSection');
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -62,19 +64,19 @@ const AboutSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
         <h3
           className="font-mono text-sm uppercase text-white/60 mb-8"
         >
-          ../O NAMA
+          {t('title')}
         </h3>
         <div className="space-y-6">
           <p
             className="font-sans text-xl md:text-2xl lg:text-3xl !leading-tight text-white"
           >
-            Svijet se mijenja. Velike riječi tehnoloških lidera nisu daleka budućnost – one su današnja stvarnost. U toj novoj eri, pobjednici neće biti oni koji se opiru, već oni koji iskoriste snagu umjetne inteligencije.
+            {t('p1')}
           </p>
           
           <p
             className="font-sans text-xl md:text-2xl lg:text-3xl !leading-tight text-white"
           >
-            Tu nastupa Plutus. Mi pretvaramo kompleksnost AI tehnologije u vaše najjače oružje. Naš posao je da operativni kaos pretvorimo u red i vratimo vam najvrjedniji resurs – vrijeme. Mi smo partner koji vam osigurava da budete oni koji mijenjaju, a ne oni koji su zamijenjeni.
+            {t('p2')}
           </p>
         </div>
       </motion.div>

@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { EnvelopeIcon, ClipboardDocumentIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 // --- Helper komponenta za rotirajući tekst ---
 const Marquee: React.FC = () => {
-  const text = "ZAKAŽI POZIV • ";
+  const t = useTranslations('ContactSection');
+  const text = `${t('cta_button')} • `;
   const marqueeText = Array(10).fill(text).join("");
 
   return (
@@ -28,6 +30,7 @@ const Marquee: React.FC = () => {
 
 // --- Glavna komponenta sekcije ---
 const ContactSection: React.FC = () => {
+  const t = useTranslations('ContactSection');
   const [isCopied, setIsCopied] = useState(false);
   const email = 'info@plutus.hr';
 
@@ -85,16 +88,16 @@ const ContactSection: React.FC = () => {
         className="mb-8 text-center"
       >
         <p className="font-sans text-lg md:text-xl text-white/80">
-          Dopustite da vam pokažemo konkretan potencijal za rast vašeg poslovanja.
+          {t('p1')}
         </p>
         <p className="font-sans text-lg md:text-xl text-white/80">
-          Rezervirajte uvodni poziv.
+          {t('p2')}
         </p>
       </motion.div>
 
       {/* Glavni CTA gumb s rotirajućim tekstom */}
       <motion.a
-        href="https://cal.com/PLACEHOLDER" // Privremeni URL za kalendar
+        href="https://cal.com/plutus-ai/15min"
         target="_blank"
         rel="noopener noreferrer"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -127,7 +130,7 @@ const ContactSection: React.FC = () => {
           className="flex items-center gap-2 transition-colors hover:text-white"
         >
           {isCopied ? <ClipboardDocumentCheckIcon className="h-4 w-4 text-accent-green" /> : <ClipboardDocumentCheckIcon className="h-4 w-4" />}
-          <span>[ {isCopied ? 'Kopirano!' : 'Kopiraj e-mail'} ]</span>
+          <span>[ {isCopied ? t('copied') : t('copy_email')} ]</span>
         </button>
       </motion.div>
     </div>

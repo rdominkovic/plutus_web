@@ -1,19 +1,22 @@
-// path: app/page.tsx
+// path: app/[locale]/page.tsx
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
-import IntroAnimation from '../components/layout/IntroAnimation';
-import { Header } from '../components/layout/Header';
-import TextRotator from '../components/sections/TextRotator';
-import PortfolioSection from '../components/sections/portfolio-section';
-import AboutSection from '../components/sections/about-section';
-import { BottomNav } from '../components/layout/bottom-nav';
-import ServicesSection from '../components/sections/services-section';
-import ContactSection from '../components/sections/contact-section';
+import { useParams } from 'next/navigation';
+import IntroAnimation from '../../components/layout/IntroAnimation';
+import { Header } from '../../components/layout/Header';
+import TextRotator from '../../components/sections/TextRotator';
+import PortfolioSection from '../../components/sections/portfolio-section';
+import AboutSection from '../../components/sections/about-section';
+import { BottomNav } from '../../components/layout/bottom-nav';
+import ServicesSection from '../../components/sections/services-section';
+import ContactSection from '../../components/sections/contact-section';
 
 
 export default function HomePage() {
+  const params = useParams();
+  const locale = params.locale as string;
   const [isLoading, setIsLoading] = useState(true);
   const aboutRef = useRef<HTMLDivElement>(null);
   

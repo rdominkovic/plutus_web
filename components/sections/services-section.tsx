@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface Service {
   title: string;
@@ -15,34 +16,7 @@ interface ServiceCardProps {
   onExpand: () => void;
 }
 
-const servicesData: Service[] = [
-  {
-    title: 'Prilagođeni razvoj aplikacija',
-    shortDescription:
-      'Dizajniramo i razvijamo softverska rješenja po mjeri: od web aplikacija za optimizaciju procesa do sustava za praćenje ključnih poslovnih metrika. Rješenja su fokusirana na pouzdanost, sigurnost i mjerljive rezultate.',
-    details: [
-      'Razvoj web aplikacija',
-      'Implementacija sustava za praćenje učinkovitosti u proizvodnji',
-      'Dizajn i optimizacija korisničkog sučelja (UI/UX)',
-      'Integracija s postojećim alatima i API-jevima',
-      'Održavanje i tehnička podrška',
-    ],
-  },
-  {
-    title: 'AI Agenti i Automatizacija',
-    shortDescription:
-      'Kreiramo pametne AI agente koji automatiziraju repetitivne zadatke, obrađuju podatke i pružaju internu podršku. Oslobađamo vaš tim za strateške ciljeve, smanjujući monotoni rad i povećavajući efikasnost.',
-    details: [
-      'Razvoj AI chatbota',
-      'Automatizacija uredskih i administrativnih zadataka',
-      'Integracija AI modela u postojeće poslovne aplikacije',
-      'Kreiranje sustava za podršku pri odlučivanju',
-      'Fino podešavanje (fine-tuning) jezičnih modela',
-    ],
-  },
-];
-
-const ServiceCard = ({ service, isExpanded, onExpand }: ServiceCardProps) => (
+const ServiceCard = ({ service, isExpanded, onExpand, t }: ServiceCardProps & { t: any }) => (
   <motion.div
     initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -88,14 +62,14 @@ const ServiceCard = ({ service, isExpanded, onExpand }: ServiceCardProps) => (
           onClick={onExpand}
           className="w-full inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.06] px-6 py-3 font-mono text-[11px] md:text-xs uppercase tracking-[0.2em] text-white hover:bg-white/[0.1] hover:border-white/25 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
         >
-          PRIKAŽI VIŠE  +
+          {t('show_more')}
         </button>
       ) : (
         <a
           href="#contact"
           className="w-full inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.06] px-6 py-3 font-mono text-[11px] md:text-xs uppercase tracking-[0.2em] text-white hover:bg-white/[0.1] hover:border-white/25 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
         >
-          KONTAKTIRAJTE NAS
+          {t('contact_us')}
         </a>
       )}
     </div>
@@ -103,7 +77,21 @@ const ServiceCard = ({ service, isExpanded, onExpand }: ServiceCardProps) => (
 );
 
 const ServicesSection: React.FC = () => {
+  const t = useTranslations('ServicesSection');
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
+
+  const servicesData: Service[] = [
+    {
+      title: t('service1_title'),
+      shortDescription: t('service1_desc'),
+      details: t.raw('service1_details'),
+    },
+    {
+      title: t('service2_title'),
+      shortDescription: t('service2_desc'),
+      details: t.raw('service2_details'),
+    },
+  ];
 
   const handleExpand = (index: number) => {
     setExpanded((prev) => {
@@ -124,9 +112,9 @@ const ServicesSection: React.FC = () => {
           viewport={{ once: true, margin: '0px 0px -80px 0px' }}
           className="text-center mb-12 md:mb-16"
         >
-          <h4 className="font-mono text-sm uppercase text-white/60 mb-3">../USLUGE</h4>
+          <h4 className="font-mono text-sm uppercase text-white/60 mb-3">{t('title')}</h4>
           <p className="font-sans text-2xl md:text-3xl lg:text-4xl !leading-tight uppercase text-white">
-            Što nudimo
+            {t('subtitle')}
           </p>
         </motion.div>
 
@@ -137,6 +125,7 @@ const ServicesSection: React.FC = () => {
               service={service}
               isExpanded={expanded.has(idx)}
               onExpand={() => handleExpand(idx)}
+              t={t}
             />
           ))}
         </div>

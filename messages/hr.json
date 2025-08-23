@@ -1,0 +1,60 @@
+{
+  "Metadata": {
+    "title": "Plutus | AI Optimizacija",
+    "description": "Plutus razvija AI agente, automatizacije i prilagođena softverska rješenja koja podižu učinkovitost poslovanja."
+  },
+  "BottomNav": {
+    "portfolio": "Portfolio",
+    "about": "O nama",
+    "services": "Usluge",
+    "contact": "Kontakt"
+  },
+  "AboutSection": {
+    "title": "../O NAMA",
+    "p1": "Svijet se mijenja. Velike riječi tehnoloških lidera nisu daleka budućnost – one su današnja stvarnost. U toj novoj eri, pobjednici neće biti oni koji se opiru, već oni koji iskoriste snagu umjetne inteligencije.",
+    "p2": "Tu nastupa Plutus. Mi pretvaramo kompleksnost AI tehnologije u vaše najjače oružje. Naš posao je da operativni kaos pretvorimo u red i vratimo vam najvrjedniji resurs – vrijeme. Mi smo partner koji vam osigurava da budete oni koji mijenjaju, a ne oni koji su zamijenjeni."
+  },
+  "ServicesSection": {
+    "title": "../USLUGE",
+    "subtitle": "Što nudimo",
+    "service1_title": "Prilagođeni razvoj aplikacija",
+    "service1_desc": "Dizajniramo i razvijamo softverska rješenja po mjeri: od web aplikacija za optimizaciju procesa do sustava za praćenje ključnih poslovnih metrika. Rješenja su fokusirana na pouzdanost, sigurnost i mjerljive rezultate.",
+    "service1_details": [
+      "Razvoj web aplikacija",
+      "Implementacija sustava za praćenje učinkovitosti u proizvodnji",
+      "Dizajn i optimizacija korisničkog sučelja (UI/UX)",
+      "Integracija s postojećim alatima i API-jevima",
+      "Održavanje i tehnička podrška"
+    ],
+    "service2_title": "AI Agenti i Automatizacija",
+    "service2_desc": "Kreiramo pametne AI agente koji automatiziraju repetitivne zadatke, obrađuju podatke i pružaju internu podršku. Oslobađamo vaš tim za strateške ciljeve, smanjujući monotoni rad i povećavajući efikasnost.",
+    "service2_details": [
+      "Razvoj AI chatbota",
+      "Automatizacija uredskih i administrativnih zadataka",
+      "Integracija AI modela u postojeće poslovne aplikacije",
+      "Kreiranje sustava za podršku pri odlučivanju",
+      "Fino podešavanje (fine-tuning) jezičnih modela"
+    ],
+    "show_more": "PRIKAŽI VIŠE +",
+    "contact_us": "KONTAKTIRAJTE NAS"
+  },
+  "ContactSection": {
+    "p1": "Dopustite da vam pokažemo konkretan potencijal za rast vašeg poslovanja.",
+    "p2": "Rezervirajte uvodni poziv.",
+    "cta_button": "ZAKAŽI POZIV",
+    "copy_email": "Kopiraj e-mail",
+    "copied": "Kopirano!"
+  },
+  "PortfolioSection": {
+    "logisync_title": "LogiSync",
+    "logisync_desc": "Platforma po mjeri za automatizaciju nabave i logistike. Optimizira slanje upita, drastično smanjuje administrativni posao i osigurava značajne uštede. Eliminira kaos praćenja ponuda putem emailova i centralizira podatke, pružajući potpunu kontrolu za donošenje brzih i isplativih odluka.",
+    "smartwork_title": "SmartWork Monitor",
+    "smartwork_desc": "Platforma koja operativne procese pretvara u mjerljive podatke. Digitalizacijom proizvodnje i uvođenjem RFID evidencije, klijentu smo eliminirali papirnu administraciju i osigurali preciznost unosa. Sustav pruža ključne statistike u stvarnom vremenu za optimizaciju resursa i donošenje konkurentnih odluka.",
+    "digital_miner_title": "Digital Data Miner",
+    "digital_miner_desc": "AI-pokretan alat koji automatizira kompleksno prikupljanje web podataka. Korištenjem jedinstvene dvo-razinske selekcije, pretvara sate monotonog rada u sekunde, isporučujući precizne podatke u više formata (CSV, JSON, DOCX). Klijentu oslobađa ključne resurse za fokus na strateške, a ne repetitivne zadatke.",
+    "chatbot_title": "Interni ChatGPT",
+    "chatbot_desc": "Interni AI ekspert s bazom znanja od preko 60 stručnih knjiga (30.000+ stranica). Asistent pruža zaposlenicima trenutačne, verificirane odgovore s navođenjem izvora. Ovim rješenjem klijentu smo uštedjeli stotine radnih sati, drastično povećali efikasnost i oslobodili tim za strateške zadatke.",
+    "video_note": "Video ilustrira automatizirani pozadinski proces skripte, a ne front-end sučelje aplikacije.",
+    "image_note": "Ilustrativna slika: Konceptualni prikaz sučelja radi zaštite povjerljivosti podataka klijenta."
+  }
+}

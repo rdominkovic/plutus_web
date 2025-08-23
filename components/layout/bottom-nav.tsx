@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface NavItem {
   id: string;
@@ -10,14 +11,16 @@ interface NavItem {
 }
 
 export const BottomNav: React.FC = () => {
+  const t = useTranslations('BottomNav');
+  
   const items: NavItem[] = useMemo(
     () => [
-      { id: 'portfolio', label: 'Portfolio', href: '#portfolio' },
-      { id: 'about', label: 'O nama', href: '#about' },
-      { id: 'services', label: 'Usluge', href: '#services' },
-      { id: 'contact', label: 'Kontakt', href: '#contact' },
+      { id: 'portfolio', label: t('portfolio'), href: '#portfolio' },
+      { id: 'about', label: t('about'), href: '#about' },
+      { id: 'services', label: t('services'), href: '#services' },
+      { id: 'contact', label: t('contact'), href: '#contact' },
     ],
-    []
+    [t]
   );
 
   const [activeId, setActiveId] = useState<string>('portfolio');

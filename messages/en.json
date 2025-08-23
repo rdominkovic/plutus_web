@@ -1,0 +1,60 @@
+{
+  "Metadata": {
+    "title": "Plutus | AI Optimization",
+    "description": "Plutus develops AI agents, automations, and custom software solutions that increase business efficiency."
+  },
+  "BottomNav": {
+    "portfolio": "Portfolio",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "AboutSection": {
+    "title": "../ABOUT US",
+    "p1": "The world is changing. The grand statements of tech leaders are not a distant future—they are today's reality. In this new era, the winners will not be those who resist, but those who harness the power of artificial intelligence.",
+    "p2": "This is where Plutus comes in. We transform the complexity of AI technology into your strongest weapon. Our job is to turn operational chaos into order and give you back your most valuable resource—time. We are the partner that ensures you are the ones who change, not the ones who are replaced."
+  },
+  "ServicesSection": {
+    "title": "../SERVICES",
+    "subtitle": "What we offer",
+    "service1_title": "Custom Application Development",
+    "service1_desc": "We design and develop tailor-made software solutions: from web applications for process optimization to systems for tracking key business metrics. Our solutions are focused on reliability, security, and measurable results.",
+    "service1_details": [
+      "Web application development",
+      "Implementation of production efficiency tracking systems",
+      "User interface design and optimization (UI/UX)",
+      "Integration with existing tools and APIs",
+      "Maintenance and technical support"
+    ],
+    "service2_title": "AI Agents and Automation",
+    "service2_desc": "We create smart AI agents that automate repetitive tasks, process data, and provide internal support. We free up your team for strategic goals, reducing monotonous work and increasing efficiency.",
+    "service2_details": [
+      "AI chatbot development",
+      "Office and administrative task automation",
+      "AI model integration into existing business applications",
+      "Decision support system creation",
+      "Fine-tuning of language models"
+    ],
+    "show_more": "SHOW MORE +",
+    "contact_us": "CONTACT US"
+  },
+  "ContactSection": {
+    "p1": "Let us show you the real growth opportunities for your business.",
+    "p2": "Book an introductory call.",
+    "cta_button": "SCHEDULE A CALL",
+    "copy_email": "Copy E-mail",
+    "copied": "Copied!"
+  },
+  "PortfolioSection": {
+    "logisync_title": "LogiSync",
+    "logisync_desc": "Custom platform for procurement and logistics automation. Optimizes inquiry sending, drastically reduces administrative work and ensures significant savings. Eliminates the chaos of tracking offers via emails and centralizes data, providing complete control for making fast and profitable decisions.",
+    "smartwork_title": "SmartWork Monitor",
+    "smartwork_desc": "Platform that transforms operational processes into measurable data. Through production digitalization and RFID tracking implementation, we eliminated paper administration for the client and ensured input precision. The system provides key real-time statistics for resource optimization and competitive decision-making.",
+    "digital_miner_title": "Digital Data Miner",
+    "digital_miner_desc": "AI-powered tool that automates complex web data collection. Using unique two-level selection, it transforms hours of monotonous work into seconds, delivering precise data in multiple formats (CSV, JSON, DOCX). It frees up key client resources to focus on strategic, not repetitive tasks.",
+    "chatbot_title": "Internal ChatGPT",
+    "chatbot_desc": "Internal AI expert with a knowledge base of over 60 professional books (30,000+ pages). The assistant provides employees with instant, verified answers with source citations. With this solution, we saved the client hundreds of working hours, drastically increased efficiency and freed up the team for strategic tasks.",
+    "video_note": "Video illustrates the automated background script process, not the front-end application interface.",
+    "image_note": "Illustrative image: Conceptual interface representation for client data confidentiality protection."
+  }
+}
