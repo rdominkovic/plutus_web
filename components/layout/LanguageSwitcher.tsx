@@ -14,6 +14,11 @@ export const LanguageSwitcher = () => {
     }
   };
 
+  const handleToggleLanguage = () => {
+    const nextLocale: 'hr' | 'en' = locale === 'hr' ? 'en' : 'hr';
+    handleLanguageChange(nextLocale);
+  };
+
   return (
     <>
       {/* Desktop verzija - prikazuje oba jezika horizontalno */}
@@ -43,32 +48,33 @@ export const LanguageSwitcher = () => {
         </button>
       </div>
 
-              {/* Mobilna verzija - prikazuje oba jezika vertikalno */}
-        <div className="md:hidden flex flex-col items-center space-y-1 font-mono text-sm uppercase tracking-wide">
-        <button
-          onClick={() => handleLanguageChange('hr')}
+              {/* Mobilna verzija - cijelo područje je jedna tipka (toggle) */}
+      <button
+        type="button"
+        onClick={handleToggleLanguage}
+        aria-label={`Prebaci jezik na ${locale === 'hr' ? 'EN' : 'HR'}`}
+        className="md:hidden flex flex-col items-center space-y-1 font-mono text-sm uppercase tracking-wide cursor-pointer"
+      >
+        <span
           className={`transition-colors duration-200 ${
             locale === 'hr'
-              ? 'text-main-white cursor-default'
-              : 'text-gray-400 hover:text-main-white cursor-pointer'
+              ? 'text-main-white'
+              : 'text-gray-400 hover:text-main-white'
           }`}
-          disabled={locale === 'hr'}
         >
           HR
-        </button>
+        </span>
         <span className="text-gray-400 w-8 h-px bg-gray-400"></span>
-        <button
-          onClick={() => handleLanguageChange('en')}
+        <span
           className={`transition-colors duration-200 ${
             locale === 'en'
-              ? 'text-main-white cursor-default'
-              : 'text-gray-400 hover:text-main-white cursor-pointer'
+              ? 'text-main-white'
+              : 'text-gray-400 hover:text-main-white'
           }`}
-          disabled={locale === 'en'}
         >
           EN
-        </button>
-      </div>
+        </span>
+      </button>
     </>
   );
 };
