@@ -2,44 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face pravila za Telegraf */
-@font-face {
-  font-family: 'Telegraf';
-  src: local('PPTelegraf Regular'), local('PPTelegraf-Regular'), /* Pokušava naći lokalno instaliran font */
-       url('/fonts/PPTelegraf-Regular.otf') format('opentype'); /* Vaša .otf datoteka iz public/fonts */
-  font-weight: 400; /* Normalna težina */
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Telegraf';
-  src: local('PPTelegraf Ultrabold'), local('PPTelegraf-Ultrabold'), /* Pokušava naći lokalno instaliran font */
-       url('/fonts/PPTelegraf-Ultrabold.otf') format('opentype'); /* Vaša .otf datoteka iz public/fonts */
-  font-weight: 700; /* Mapiramo Ultrabold na standardnu "bold" težinu */
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Ažurirano @font-face pravilo za Fraktion Mono */
-@font-face {
-  font-family: 'Fraktion Mono';
-  src: local('PPFraktionMono Regular'), local('PPFraktionMono-Regular'), /* Pokušava naći lokalno instaliran font */
-       url('/fonts/PPFraktionMono-Regular.otf') format('opentype'); /* Vaša .otf datoteka iz public/fonts */
-  font-weight: 400; /* Normalna (Regular) težina */
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Fraktion Mono';
-  src: local('PPFraktionMono Bold'), local('PPFraktionMono-Bold'),
-       url('/fonts/PPFraktionMono-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 html {
   scroll-behavior: smooth;
 }

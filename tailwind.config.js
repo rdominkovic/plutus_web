@@ -14,8 +14,8 @@ module.exports = {
         'accent-green': '#c3fb5e',
       },
       fontFamily: {
-        sans: ['Telegraf', 'sans-serif'],
-        mono: ['Fraktion Mono', 'sans-serif'],
+        sans: ['var(--font-telegraf)', 'sans-serif'],
+        mono: ['var(--font-fraktion)', 'monospace'],
       },
       borderRadius: {
         'pill': '9999px',

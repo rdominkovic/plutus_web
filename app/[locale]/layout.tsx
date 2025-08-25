@@ -1,48 +1,72 @@
 // path: app/[locale]/layout.tsx
-import '../../styles/globals.css';
-import type { ReactNode } from 'react';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { ReactNode } from "react";
+import { NextIntlClientProvider, useMessages } from "next-intl";
+import Header from "@/components/layout/Header";
+import { telegraf, fraktion } from "@/app/fonts"; // Import fonts
+import "@/styles/globals.css";
 
-interface RootLayoutProps {
+type Props = {
   children: ReactNode;
-  params: {
-    locale: string;
-  };
+  params: { locale: string };
+};
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "hr" }];
 }
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
-  const messages = await getMessages({ locale });
-  const metadataMessages = (messages as any)?.Metadata as Record<string, string> | undefined;
-  const t = (key: string) => metadataMessages?.[key] ?? key;
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const messages = await import(`../../messages/${locale}.json`);
+  const t = (key: string) => messages.Metadata[key] || key;
 
   return {
-    title: t('title'),
-    description: t('description'),
-    icons: '/favicon/favicon.ico',
-    other: {
-      // Uklanjamo preload direktive. Next/image s 'priority' propom
-      // i ispravna strategija učitavanja fontova su bolji pristup.
+    metadataBase: new URL("https://www.plutus.hr"),
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    authors: [{ name: "Robert Dominković" }],
+    creator: "Robert Dominković",
+    publisher: "Plutus",
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: "[https://www.plutus.hr](https://www.plutus.hr)",
+      siteName: "Plutus",
+      images: [
+        {
+          url: "/og-image.jpg",
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale: locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      creator: "@rdominkovic",
+      images: ["/og-image.jpg"],
     },
   };
 }
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: RootLayoutProps) {
-  const messages = await getMessages({ locale });
+export default function RootLayout({ children, params: { locale } }: Props) {
+  const messages = useMessages();
 
   return (
-    <html lang={locale} className="dark">
-      <body className="bg-main-black text-main-white font-sans">
+    <html lang={locale}>
+      <body
+        className={`${telegraf.variable} ${fraktion.variable} font-sans bg-black text-white antialiased`} // Add font variables here
+      >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <Header />
           {children}
         </NextIntlClientProvider>
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );
