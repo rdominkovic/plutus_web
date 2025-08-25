@@ -16,7 +16,7 @@ export const LanguageSwitcher = () => {
 
   return (
     <>
-      {/* Desktop verzija - prikazuje oba jezika */}
+      {/* Desktop verzija - prikazuje oba jezika horizontalno */}
       <div className="hidden md:flex items-center space-x-2 font-mono text-sm uppercase tracking-wide">
         <button
           onClick={() => handleLanguageChange('hr')}
@@ -43,23 +43,31 @@ export const LanguageSwitcher = () => {
         </button>
       </div>
 
-      {/* Mobilna verzija - prikazuje samo onaj jezik na koji se može prebaciti */}
-      <div className="md:hidden">
-        {locale === 'hr' ? (
-          <button
-            onClick={() => handleLanguageChange('en')}
-            className="font-mono text-sm uppercase tracking-wide text-gray-400 hover:text-main-white cursor-pointer transition-colors duration-200"
-          >
-            EN
-          </button>
-        ) : (
-          <button
-            onClick={() => handleLanguageChange('hr')}
-            className="font-mono text-sm uppercase tracking-wide text-gray-400 hover:text-main-white cursor-pointer transition-colors duration-200"
-          >
-            HR
-          </button>
-        )}
+              {/* Mobilna verzija - prikazuje oba jezika vertikalno */}
+        <div className="md:hidden flex flex-col items-center space-y-1 font-mono text-sm uppercase tracking-wide">
+        <button
+          onClick={() => handleLanguageChange('hr')}
+          className={`transition-colors duration-200 ${
+            locale === 'hr'
+              ? 'text-main-white cursor-default'
+              : 'text-gray-400 hover:text-main-white cursor-pointer'
+          }`}
+          disabled={locale === 'hr'}
+        >
+          HR
+        </button>
+        <span className="text-gray-400 w-8 h-px bg-gray-400"></span>
+        <button
+          onClick={() => handleLanguageChange('en')}
+          className={`transition-colors duration-200 ${
+            locale === 'en'
+              ? 'text-main-white cursor-default'
+              : 'text-gray-400 hover:text-main-white cursor-pointer'
+          }`}
+          disabled={locale === 'en'}
+        >
+          EN
+        </button>
       </div>
     </>
   );
