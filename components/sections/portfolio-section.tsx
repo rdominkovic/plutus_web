@@ -38,17 +38,17 @@ const PortfolioSection = () => {
     {
       title: t('smartwork_title'),
       description: t('smartwork_desc'),
-      imageUrl: '/images/portfolio/SmartWorkMonitor.png',
+      imageUrl: '/images/portfolio/SmartWorkMonitor.webp',
     },
     {
       title: t('digital_miner_title'),
       description: t('digital_miner_desc'),
-      videoUrl: '/video/portfolio/Digital_data_miner.mp4',
+      videoUrl: '/video/portfolio/Digital_data_miner.webm',
     },
     {
       title: t('chatbot_title'),
       description: t('chatbot_desc'),
-      imageUrl: '/images/portfolio/ai_chatbot.png',
+      imageUrl: '/images/portfolio/ai_chatbot.webp',
     },
   ];
 

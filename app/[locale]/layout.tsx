@@ -23,12 +23,8 @@ export async function generateMetadata({ params: { locale } }: { params: { local
     description: t('description'),
     icons: '/favicon/favicon.ico',
     other: {
-      'link[rel="preload"][href="/video/portfolio/Digital_data_miner.mp4"][as="video"][type="video/mp4"]': '',
-      'link[rel="preload"][href="/images/portfolio/optiflow.webp"][as="image"][type="image/webp"]': '',
-      'link[rel="preload"][href="/images/portfolio/ai_chatbot.png"][as="image"][type="image/png"]': '',
-      'link[rel="preload"][href="/images/portfolio/SmartWorkMonitor.png"][as="image"][type="image/png"]': '',
-      'link[rel="preload"][href="/fonts/PPTelegraf-Ultrabold.otf"][as="font"][type="font/otf"][crossOrigin="anonymous"]': '',
-      'link[rel="preload"][href="/fonts/PPFraktionMono-Regular.otf"][as="font"][type="font/otf"][crossOrigin="anonymous"]': '',
+      // Uklanjamo preload direktive. Next/image s 'priority' propom
+      // i ispravna strategija učitavanja fontova su bolji pristup.
     },
   };
 }
